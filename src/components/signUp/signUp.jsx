@@ -1,20 +1,29 @@
 // import addUsr from "./addUsr"
+import './signUpStyle.css'
 
 function SignUp(){
     return(
         <div>
-            <form method="POST" className=" mx-40  inline-block p-10 border-double border-4 border-cyan-400 max-w-3xl bg-slate-100 text-l" >
-                <h1 className="mb-3 text-center">Sign-Up Form.</h1>
-                <label htmlFor="" className="mr-2">Name:</label> <br/>
-                <input name="name" type="text" required className=" mb-3 bg-slate-400 border-double border-2 rounded-lg w-64"/> <br/>
+            <form method="POST" className="addUserForm" >
+                <h1 className="formTitle"> <b>Sign-Up Form</b> </h1>
 
-                <label htmlFor="" className="mr-2">Password:</label><br/>
-                <input  name="password" type="password" required className=" mb-3 bg-slate-400 border-double border-2 rounded-lg w-64"/><br/>
+                <div className="socialNet">
 
-                <label htmlFor="" className="mr-2">Email:</label><br/>
-                <input name="email" type="email" required className=" mb-3 bg-slate-400 border-double border-2 rounded-lg w-64"/><br/>
+                    <p>Vk</p>
+                    <p>Telegram</p>
 
-                <button className="p-1 w-48 border-double border-4 border-cyan-400 max-w-3xl bg-slate-100 rounded-full text-center" type="submit">Send</button>
+                </div>
+
+                <label htmlFor="" className="">Name:</label> <br/>
+                <input name="name" type="text" required className=""/> <br/>
+
+                <label htmlFor="" className="">Password:</label><br/>
+                <input  name="password" type="password" required className=""/><br/>
+
+                <label htmlFor="" className="">Email:</label><br/>
+                <input name="email" type="email" required className=""/><br/>
+
+                <button className="" type="submit">Send</button>
             </form>
         </div>
     )

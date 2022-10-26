@@ -1,5 +1,6 @@
 import SignUp from "../signUp/signUp";
-import Header from "../../header/header";
+import Header from "../header/header";
+
 // const src = "http://localhost:8080/forms/get/forms"
 // const src2 = "http://localhost:7000/token"
 // const json = JSON.stringify({
