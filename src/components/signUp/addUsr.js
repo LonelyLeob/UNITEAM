@@ -1,4 +1,4 @@
-function postUp(){
+function addUsr(){
 
 }
-export default postUp()
+export default addUsr()
