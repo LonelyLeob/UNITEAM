@@ -1,5 +1,6 @@
-import SignUp from "../signUp/signUp";
 import Header from "../header/header";
+
+
 
 // const src = "http://localhost:8080/forms/get/forms"
 // const src2 = "http://localhost:7000/token"
@@ -9,6 +10,7 @@ import Header from "../header/header";
 // })
 //
 // const req = axios.post(src2, json, {withCredentials:true})
+
 
 function App() {
   // const [forms, setForms] = useState([])
@@ -24,7 +26,6 @@ function App() {
       <div className="App">
         {/*<Form json={forms}/>*/}
           <Header/>
-          <SignUp/>
       </div>
     );
 }
