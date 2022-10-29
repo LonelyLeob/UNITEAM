@@ -1,5 +1,5 @@
 import Header from "../header/header";
-
+import axios from "axios";
 
 
 // const src = "http://localhost:8080/forms/get/forms"
@@ -22,6 +22,10 @@ function App() {
   //       setForms(data.data)
   //     })
   // })
+
+    let json = JSON.stringify({"name": "name", "password": "password"})
+    axios.post("http://localhost:7000/auth/token", json).then(data => console.log(data))
+
   return (
       <div className="App">
         {/*<Form json={forms}/>*/}

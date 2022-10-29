@@ -2,6 +2,7 @@ import "./headerStyle.css";
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 import SignUp from "../signUp/signUp";
 import SignIn from "../signIn/signIn";
+import form from "../form/Form";
 
 function Header(){
     return(
@@ -12,7 +13,9 @@ function Header(){
                 <h1 className="HeaderLogo">UNIVERSITY.Inc</h1>
                 <ul>
                     <li>Портфолио</li>
-                    <li>Курсы</li>
+                    {/*<li>*/}
+                    {/*    <Link to="form">Формы</Link>*/}
+                    {/*</li>*/}
                     <li>
                         <Link to="signIn">Вход</Link>
                     </li>
@@ -23,6 +26,7 @@ function Header(){
             </div>
         </div>
             <Routes>
+                {/*<Route path="form" element={<form/>}></Route>*/}
                 <Route path="signUp" element={<SignUp/>}></Route>
                 <Route path="signIn" element={<SignIn/>}></Route>
             </Routes>

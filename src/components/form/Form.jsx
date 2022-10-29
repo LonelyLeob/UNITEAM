@@ -1,10 +1,9 @@
 import Field from "../field/Field";
-import Header from "../../header/header";
 
 function Form(props) {
     return (
         <div>
-            <Header/>
+
                 {props.json.map((item, idx) => {
                     if (item.Fields <= 1){
                         return(
