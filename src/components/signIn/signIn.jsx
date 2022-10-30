@@ -1,40 +1,39 @@
 import "./signInStyle.css"
 import {useState} from "react";
-import axios from "axios";
-// import authUsr from "./authUsr";
-
+import axios from 'axios'
 
 function SignIn(){
     const[name,setName] = useState('')
     const[password,setPassword] = useState('')
-    const url = 'http://localhost:7000/auth/token'
 
-                                            //          AXIOS FUNC
-    async function authUsr(name,password,url){
-        const data = {
-                       name: name,
-                       password: password,
-                   }
-        await axios.post(url, JSON.stringify(data), {withCredentials: true})
+    let handleSubmit = async (e) => {
+            e.preventDefault();
+            try {
+            let response = await axios.post("http://localhost:7000/auth/token", 
+                JSON.stringify({
+                name: name,
+                password: password
+            }), 
+            {withCredentials: true}
+            )
+            let res = await axios.post("http://localhost:8080/forms/create", 
+            JSON.stringify({
+            name: "123",
+            desc: "desc",
+            anon: true
+        }), 
+        {withCredentials: true}
+        ).then(data => console.log(data))
+        }   catch (err) {
+            console.log("u vas err")
+        }
     }
-
-
-                                                //          FETCH FUNC
- // async function authUsr(name,password,url){
- //        const data = {
- //            name: name,
- //            password: password,
- //        }
- //        let response = await fetch(url,{
- //            method:'POST',
- //            body: JSON.stringify(data),
- //        })
- //    }
-
+      
+    
 
     return(
         <div>
-            <form method="POST"  className="signForm">
+            <form className="signForm">
 
                 <h1 className="formTitle"> <b>Sign-In Form</b> </h1>
 
@@ -44,14 +43,16 @@ function SignIn(){
                     <p>Telegram</p>
 
                 </div>
+                
+                <label>Name:</label> 
+                <br/>
+                <input value={name} onChange={(e) => setName(e.target.value)} name="name" type="text" required className=""/> <br/>
 
-                <label htmlFor="" className="">Name:</label> <br/>
-                <input value={name} onChange={event => setName(event.target.value)} name="name" type="text" required className=""/> <br/>
+                <label>Password:</label>
+                <br/>
+                <input value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" required className=""/><br/>
 
-                <label htmlFor="" className="">Password:</label><br/>
-                <input value={password} onChange={event => setPassword(event.target.value)} name="password" type="password" required className=""/><br/>
-
-                <button className="" onClick={ () => authUsr(name, password, url) } type="submit">Send</button>
+                <button className="" onClick={(e) => handleSubmit(e) } type="submit">Send</button>
 
             </form>
 
