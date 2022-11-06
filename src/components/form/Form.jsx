@@ -1,10 +1,10 @@
 import Field from "../field/Field";
 
+
 function Form(props) {
 
     return (
         <div>
-
                 {props.getJson.map((item, idx) => {
                     if (item.Fields <= 1){
                         return(

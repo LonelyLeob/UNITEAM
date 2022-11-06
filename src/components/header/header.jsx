@@ -2,25 +2,9 @@ import "./headerStyle.css";
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 import SignUp from "../signUp/signUp";
 import SignIn from "../signIn/signIn";
-import Form from "../form/Form";
-import axios from "axios";
-import {useEffect, useState} from "react";
-
-
-
-
+import AllForms from "../form/allForms";
 
 function Header(){
-
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-        axios.get("http://localhost:8080/forms/get/forms")
-            .then(res => {
-                setData(res.data)
-            }).catch(err =>
-        console.log(err))
-    })
 
     return(
         <BrowserRouter>
@@ -42,7 +26,7 @@ function Header(){
             </div>
         </div>
             <Routes>
-                <Route path="Form" element={<Form getJson={data} />}></Route>
+                <Route path="Form" element={<AllForms/>}></Route>
                 <Route path="signUp" element={<SignUp/>}></Route>
                 <Route path="signIn" element={<SignIn/>}></Route>
             </Routes>
