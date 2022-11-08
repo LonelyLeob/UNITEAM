@@ -18,7 +18,7 @@ function Form(props) {
 
                 <div className="formContainer">
                     <h1 className="formH">{props.item.Name}</h1>
-                    <p className="formP">{props.item.Description}</p>
+                    <p className="formP">{props.item.Description} {`eto form ${props.Uuid}`}</p>
                     <Field fields={props.item.Fields}/>
                 </div>
 

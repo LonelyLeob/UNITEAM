@@ -1,30 +1,52 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Form from "./Form"
-
+import "./Forms.css"
 
 function AllForms(){
 
-    const [data, setData] = useState([])
+    const [forms, setForms] = useState([])
+
+    let handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+        let response = await axios.post("http://localhost:8080/create", 
+            JSON.stringify({
+            name: "1234",
+            desc: "3214"
+        }), 
+        {withCredentials: true}
+        ).then(data => {
+            forms.unshift(data.data)
+        })
+    }   catch (err) {
+        console.log("u vas err")
+    }
+}
 
 
     useEffect(() => {
         axios
             .get("http://localhost:8080/get/forms", {withCredentials: true})
             .then(data => {
-                setData(data.data)
+                setForms(data.data)
             }).catch(err => {
             console.log(err)
         })
     }, [])
 
-    return(
+    if (forms == null) {
+        return (
+            <div className="error">Нет форм</div>
+        ) 
+    }
+
+    return (
         <div>
-            {data.map((item, idx) => {
+            <button onClick={(e) => handleSubmit(e) } className="addForm">+</button>
+            {forms.map((item) => {
                 return(
-                    <div key={idx}>
-                        <Form item = {item}/>
-                    </div>
+                    <Form item = {item}/>
                 )
             })}
         </div>
