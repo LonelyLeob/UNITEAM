@@ -1,3 +1,7 @@
+.signUpContain{
+    margin-top: 150px ;
+}
+
 .addUserForm{
     padding: 50px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25), -2px -2px 5px rgba(0, 0, 0, 0.25);
@@ -39,7 +43,7 @@
 
 .addUserForm button{
     padding: 5px;
-    width: 100px;
+    width: 170px;
     margin-top: 30px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25), -2px -2px 5px rgba(0, 0, 0, 0.25);
     border-radius: 8px;

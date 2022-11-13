@@ -32,9 +32,9 @@ function SignUp(){
 
 
     return (
-        <div>
+        <div className="signInContain">
             <form method="POST" className="addUserForm" >
-                <h1 className="formTitle"> <b>Sign-Up Form</b> </h1>
+                <h1 className="formTitle"> <b>Регистрация</b> </h1>
 
                 <div className="socialNet">
 
@@ -43,21 +43,21 @@ function SignUp(){
 
                 </div>
 
-                <label htmlFor="" className="">Name:</label>
+                <label htmlFor="" className="">Имя пользователя:</label>
                 <br/>
                 <input value={name} onChange={event => setName(event.target.value)} name="name" type="text" required className=""/> 
                 <br/>
 
-                <label htmlFor="" className="">Password:</label>
+                <label htmlFor="" className="">Пароль:</label>
                 <br/>
                 <input value={password} onChange={event => setPassword(event.target.value)} name="password" type="password" required className=""/>
                 <br/>
 
-                <label htmlFor="" className="">Email:</label><br/>
+                <label htmlFor="" className="">E-mail:</label><br/>
                 <input value={email} onChange={event => setEmail(event.target.value)} name="email" type="text" required className=""/>
                 <br/>
 
-                <button className="" onClick={(e) => handleSubmit(e) } type="submit">Send</button>
+                <button className="" onClick={(e) => handleSubmit(e) } type="submit">Создать аккаунт</button>
             </form>
 
 

@@ -1,0 +1,20 @@
+.FasleForm{
+    display: flex;
+    justify-content: flex-end;
+    margin: 25px 70px 40px 0;
+    align-items: center;
+    font-size: 18px;
+}
+
+.FasleForm button{
+    padding: 10px;
+    width: 50px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25), -2px -2px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 100%;
+    background: linear-gradient(94.39deg, #048CFA 0.71%, #0C2CFD 98.42%);
+    color: white;
+    font-size: 20px;
+    transition: 1s;
+    font-weight: bolder;
+    margin-left: 15px;
+}

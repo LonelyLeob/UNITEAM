@@ -1,29 +1,14 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Form from "./Form"
-import "./Forms.css"
+import FalseForm from "../falseForm/falseForm";
+import "./Form.css"
 
 function AllForms(){
 
     const [forms, setForms] = useState([])
-
-    let handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-        let response = await axios.post("http://localhost:8080/create", 
-            JSON.stringify({
-            name: "1234",
-            desc: "3214"
-        }), 
-        {withCredentials: true}
-        ).then(data => {
-            forms.unshift(data.data)
-        })
-    }   catch (err) {
-        console.log("u vas err")
-    }
-}
-
+    let errText = "Создать форму"
+    let notErrText = "Добавить форму"
 
     useEffect(() => {
         axios
@@ -37,16 +22,22 @@ function AllForms(){
 
     if (forms == null) {
         return (
-            <div className="error">Нет форм</div>
-        ) 
+
+            <div className="error">
+                <FalseForm text = {errText}/>
+                <p className="HasnotForm">У вас нет форм</p>
+            </div>
+        )
     }
 
-    return (
+    return(
         <div>
-            <button onClick={(e) => handleSubmit(e) } className="addForm">+</button>
-            {forms.map((item) => {
+            <FalseForm text = {notErrText}/>
+            {forms.map((item, idx) => {
                 return(
-                    <Form item = {item}/>
+                    <div key={idx}>
+                        <Form item = {item}/>
+                    </div>
                 )
             })}
         </div>

@@ -2,6 +2,7 @@ import "./signInStyle.css"
 import {useState} from "react";
 import axios from 'axios'
 
+
 function SignIn(){
     const[name, setName] = useState('')
     const[password, setPassword] = useState('')
@@ -27,10 +28,10 @@ function SignIn(){
 
 
     return(
-        <div>
+        <div className="signInContain">
             <form className="signForm">
 
-                <h1 className="formTitle"> <b>Sign-In Form</b> </h1>
+                <h1 className="formTitle"> <b>Авторизация</b> </h1>
 
                 <div className="socialNet">
 
@@ -39,15 +40,15 @@ function SignIn(){
 
                 </div>
                 
-                <label>Name:</label> 
+                <label>Имя пользователя:</label>
                 <br/>
                 <input value={name} onChange={(e) => setName(e.target.value)} name="name" type="text" required className=""/> <br/>
 
-                <label>Password:</label>
+                <label>Пароль:</label>
                 <br/>
                 <input value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" required className=""/><br/>
 
-                <button className="" onClick={(e) => handleSubmit(e) } type="submit">Send</button>
+                <button className="" onClick={(e) => handleSubmit(e) } type="submit">Войти</button>
             </form>
 
 

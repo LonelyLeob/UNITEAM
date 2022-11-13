@@ -1,0 +1,14 @@
+.anon{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.anon label{
+margin-right: 10px;
+}
+
+.anonInp{
+    margin-left: 10px;
+    color: #048cfa;
+}

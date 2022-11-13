@@ -19,3 +19,28 @@
     font-size: 18px;
     margin-bottom: 40px;
 }
+.error .HasnotForm{
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    font-weight: lighter;
+}
+
+.formContainer .fieldsBtn{
+    /*padding: 3px;*/
+    width: 33px;
+    height: 33px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25), -1px -1px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 100%;
+    background: linear-gradient(94.39deg, #048CFA 0.71%, #0C2CFD 98.42%);
+    color: white;
+    font-size: 18px;
+    transition: 1s;
+    font-weight: bolder;
+    margin-left: 10px;
+}
+
+.formContainer .formContainerField{
+    display: flex;
+    justify-content: center;
+}
