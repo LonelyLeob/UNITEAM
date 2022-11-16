@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  auth:
+    container_name: authenticate
+    ports:
+      - 7000:7000
+    build: ./authenticate
+    depends_on:
+      - db
+    restart: always
+  forms:
+    container_name: forms
+    ports:
+      - 8080:8080
+    build: ./forms
+    depends_on:
+      - db
+    restart: always
+  db:
+    container_name: dbservice
+    ports:
+      - 5432:5432
+    volumes:
+    - ./service:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=service
+    image: postgres:latest
