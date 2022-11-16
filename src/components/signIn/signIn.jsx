@@ -10,15 +10,18 @@ function SignIn(){
     let handleSubmit = async (e) => {
             e.preventDefault();
             try {
-            let response = await axios.post("http://localhost:7000/token", 
+            let response = await axios.post("http://uni-team-inc.online:7000/api/v1/authorize",
                 JSON.stringify({
                 name: name,
                 password: password
-            }), 
-            {withCredentials: true}
-            ).then(() => {
+            })
+            ).then((data) => {
                 setName("")
                 setPassword("")
+                let access = data.data.access
+                let refresh = data.data.refresh
+                localStorage.setItem("access", access)
+                localStorage.setItem("refresh", refresh)
             })
         }   catch (err) {
             console.log("u vas err")

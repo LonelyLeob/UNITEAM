@@ -3,7 +3,6 @@ import './signUpStyle.css'
 import {useState} from "react";
 
 
-
 function SignUp(){
 
     const[name,setName] = useState('')
@@ -13,21 +12,25 @@ function SignUp(){
     let handleSubmit = async (e) => {
             e.preventDefault();
             try {
-            let response = await axios.post("http://localhost:7000/registration", 
+            let response = await axios.post("http://uni-team-inc.online:7000/api/v1/registration",
                 JSON.stringify({
                 name: name,
                 password: password,
                 email: email
-            }), 
-            {withCredentials: true}
-            ).then(() => {
+            }))
+                .then((data) => {
                 setName("")
                 setPassword("")
                 setEmail("")
+                    let access = data.data.access
+                    let refresh = data.data.refresh
+                    localStorage.setItem("access", access)
+                    localStorage.setItem("refresh", refresh)
             })
         }   catch (err) {
             console.log("u vas err")
         }
+
     }
 
 

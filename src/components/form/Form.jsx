@@ -4,15 +4,16 @@ import AllFields from "../field/allFields"
 
 function Form(props) {
 
-    let Uuid = props.item.Uuid
+    let uuid = props.item.Uuid
 
     let handleSubmit = async () => {
-        let res = await axios.post("http://localhost:8080/create/field?form=" + Uuid,
+        let res = await axios.post(`http://uni-team-inc.online:8080/api/v1/create/field?form=${uuid}`,
             JSON.stringify(
                 {
                     quiz: "абщхда"
-                }),
-            {withCredentials: true}
+                }),{headers:{
+                    Authorization:`Bearer ${localStorage.getItem('access')}`
+                }}
     )}
 
 

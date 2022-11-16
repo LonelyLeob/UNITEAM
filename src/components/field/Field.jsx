@@ -5,15 +5,16 @@ import axios from "axios";
 function Field(props) {
 
 
-    let Id = props.fieldsId
+    let id = props.fieldsId
 
     let handleSubmit = async () => {
-        let response = await axios.post("http://localhost:8080/create/field/answer?field=" + Id,
+        let response = await axios.post(`http://uni-team-inc.online:8080/api/v1/create/answer?field=${id}`,
             JSON.stringify(
                 {
                     answer:"Ответ"
-                }),
-            {withCredentials: true}
+                }),{headers:{
+                    Authorization:`Bearer ${localStorage.getItem('access')}`
+                }}
         )}
 
 
