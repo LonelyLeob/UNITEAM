@@ -1,7 +1,9 @@
 FROM golang:latest
 
-COPY . /forms/
 WORKDIR /forms/
+COPY go.mod /forms/
+COPY go.sum /forms/
+RUN go mod download
 
 ENV GOPATH=/
 ENV REM_HOSTF=forms
@@ -12,10 +14,9 @@ ENV PORT=5432
 ENV USER=user
 ENV NAME=service
 ENV PASSWORD=root
-
 EXPOSE 8080:8080
 
-RUN go mod download
+COPY . /forms/
 RUN go build -o forms ./cmd/main/...
 
 CMD ["./forms"]
