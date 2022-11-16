@@ -1,6 +1,7 @@
 FROM golang:latest
 
-COPY ./ ./
+WORKDIR /forms
+COPY . /forms/
 
 ENV GOPATH=/
 RUN go mod download

@@ -1,9 +1,7 @@
 FROM golang:latest
 
-COPY ./ ./
-
-
-ENV GOPATH=/
+WORKDIR /app
+COPY . /app/
 
 RUN go mod download
 ENV REM_HOST=authenticate
