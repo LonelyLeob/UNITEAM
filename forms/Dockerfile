@@ -1,6 +1,7 @@
 FROM golang:latest
 
-COPY ./ ./
+COPY . /forms/
+WORKDIR /forms/
 
 ENV GOPATH=/
 ENV REM_HOSTF=forms

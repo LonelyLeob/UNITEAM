@@ -1,6 +1,7 @@
 FROM golang:latest
 
-COPY ./ ./
+COPY . /auth/
+WORKDIR /auth/
 
 ENV GOPATH=/
 ENV REM_HOST=authenticate
