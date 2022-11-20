@@ -1,0 +1,63 @@
+.changeContainer{
+    max-width: 650px;
+    font-size: 18px;
+    font-weight: normal;
+    margin:auto;
+}
+
+.changeContainerContent{
+    margin-top: 10%;
+}
+
+.changeContainerContent h1{
+    font-size: 25px;
+    font-weight: lighter;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.changeFields{
+    background: linear-gradient(rgba(204, 204, 204, 0.6), rgba(236, 236, 236, 0.6));
+    padding: 9px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.wrapper{
+    border-bottom: 1px solid ;
+    border-bottom-color: white;
+    padding-bottom: 10px;
+}
+
+.queryAnsw{
+    margin-bottom: 5px;
+}
+.wrapperBtn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wrapperBtn input{
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 2px;
+    box-shadow: 1px 1px 1px 1px #c7c7c7;
+}
+
+.btn{
+    padding: 5px 12px 5px 12px;
+    background-color: #048cfa;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+}
+
+.btnTest{
+    margin: 50px;
+    padding: 10px;
+    background-color: #048cfa;
+    border-radius: 50%;
+    max-width: 5%;
+}
+

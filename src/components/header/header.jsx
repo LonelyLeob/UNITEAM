@@ -1,21 +1,34 @@
 import "./headerStyle.css";
-import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
-import SignUp from "../signUp/signUp";
-import SignIn from "../signIn/signIn";
-import AllForms from "../form/allForms";
+import {Link} from "react-router-dom";
+
 
 
 function Header(){
+        if (localStorage.getItem("access") !== null) {
+            return (
+                <div className="Header">
+                    <div className="upMenu">
+                        <h1 className="HeaderLogo">UNIVERSITY.Inc</h1>
+                        <ul>
+                            <li>
+                                <Link to="Form">Формы</Link>
+                            </li>
+                            <li>
+                                <Link to="signIn">Вход</Link>
+                            </li>
+                            <li>
+                                <Link to="signUp">Регистрация</Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            )}
 
     return(
-        <BrowserRouter>
         <div className="Header">
             <div className="upMenu">
                 <h1 className="HeaderLogo">UNIVERSITY.Inc</h1>
                 <ul>
-                    <li>
-                        <Link to="Form">Формы</Link>
-                    </li>
                     <li>
                         <Link to="signIn">Вход</Link>
                     </li>
@@ -25,12 +38,7 @@ function Header(){
                 </ul>
             </div>
         </div>
-            <Routes>
-                <Route path="Form" element={<AllForms/>}></Route>
-                <Route path="signUp" element={<SignUp/>}></Route>
-                <Route path="signIn" element={<SignIn/>}></Route>
-            </Routes>
-        </BrowserRouter>
+
     )
 }
 
