@@ -70,16 +70,16 @@ func (s *Server) setupRoutes() {
 	api1 := s.handler.PathPrefix("/api/v1").Subrouter()
 
 	api1.Use(handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://localhost:3000", "http://localhost:3000/", "http://localhost:5433"}),
+		handlers.AllowedOrigins([]string{"*"}),
 		handlers.AllowedHeaders([]string{"Origin", "Content-Type", "Authorization"}),
-		handlers.AllowedMethods([]string{"POST", "GET", "OPTIONS", "HEAD"}),
-		handlers.AllowCredentials()),
-	)
+	))
 
 	api1.HandleFunc("/create", s.FormsCreatingHttp()).Methods("POST", "OPTIONS")
 	api1.HandleFunc("/create/field", s.FieldCreatingForm()).Methods("POST", "OPTIONS")
 	api1.HandleFunc("/create/answer", s.AnswerCreatingField()).Methods("POST", "OPTIONS")
+
 	api1.HandleFunc("/get/forms", s.GetFormsByAuthorUUID()).Methods("GET", "OPTIONS")
+
 	api1.HandleFunc("/delete", s.DeleteFormByFormUuid()).Methods("DELETE", "OPTIONS")
 	api1.HandleFunc("/delete/field", s.DeleteFieldById()).Methods("DELETE", "OPTIONS")
 	api1.HandleFunc("/delete/answer", s.DeleteAnswerById()).Methods("DELETE", "OPTIONS")
