@@ -5,8 +5,25 @@
     margin:auto;
 }
 
-.changeContainerContent{
-    margin-top: 10%;
+
+.btnDel{
+    padding: 10px;
+    width: 50px;
+    background-color: #da5757;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    margin: 25px 70px 40px 10px;
+    font-size: 20px;
+}
+
+.btnDelContainer{
+    display: flex;
+    justify-content: end;
+}
+
+.btnDelContainer label{
+    font-size: 18px;
 }
 
 .changeContainerContent h1{

@@ -10,7 +10,6 @@ function ChangeFields(props){
                     return(
                         <div className="changeFields" key={idx}>
                                 <div className="wrapper">
-                                    <p className="queryAnsw">Поле {idx + 1}</p>
                                     <p>{item.Quiz}</p>
                                 </div>
                             <br/>
