@@ -68,7 +68,9 @@ func (s *Server) configureDB(url string) {
 // set up routes to get requests
 func (s *Server) setupRoutes() {
 	api1 := s.handler.PathPrefix("/api/v1").Subrouter()
-
+	s.handler.Use(
+		handlers.CORS(
+			handlers.AllowedOrigins([]string{"*"})))
 	api1.Use(handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),
 		handlers.AllowedHeaders([]string{"Origin", "Content-Type", "Authorization"}),
