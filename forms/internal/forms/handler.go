@@ -168,11 +168,6 @@ func (s *Server) GetFormsByAuthorUUID() http.HandlerFunc {
 
 func (s *Server) DeleteFormByFormUuid() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "OPTIONS" {
-			w.Header().Set("Allow-Access-Control-Origin", "*")
-			return
-		}
-
 		params := r.URL.Query()
 		uuid := params.Get("form")
 		if err := s.store.Forms().DeleteAllFormByUuid(uuid); err != nil {
@@ -186,11 +181,6 @@ func (s *Server) DeleteFormByFormUuid() http.HandlerFunc {
 
 func (s *Server) DeleteFieldById() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "OPTIONS" {
-			w.Header().Set("Allow-Access-Control-Origin", "*")
-			return
-		}
-
 		params := r.URL.Query()
 		uuid := params.Get("id")
 		if err := s.store.Forms().DeleteOneFieldByFieldId(uuid); err != nil {
@@ -204,11 +194,6 @@ func (s *Server) DeleteFieldById() http.HandlerFunc {
 
 func (s *Server) DeleteAnswerById() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "OPTIONS" {
-			w.Header().Set("Allow-Access-Control-Origin", "*")
-			return
-		}
-
 		params := r.URL.Query()
 		id := params.Get("id")
 		if err := s.store.Forms().DeleteOneAnswerById(id); err != nil {
