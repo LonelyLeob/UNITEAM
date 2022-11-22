@@ -1,9 +1,8 @@
 FROM golang:latest
 
-WORKDIR /app
-COPY . /app/
+COPY ./ ./
 
-RUN go mod download
+ENV GOPATH=/
 ENV REM_HOST=authenticate
 ENV REM_PORT=7000
 ENV S_KEY=nadya
@@ -15,7 +14,7 @@ ENV PASSWORD=root
 
 EXPOSE 7000:7000
 
-RUN ls
+RUN go mod download
 RUN go build -o auth ./cmd/main/...
 
 CMD ["./auth"]
