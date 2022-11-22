@@ -72,7 +72,7 @@ func (s *Server) setupRoutes() {
 	api1.Use(handlers.CORS(
 		handlers.AllowedOrigins([]string{"http://localhost:3000"}),
 		handlers.AllowedHeaders([]string{"Origin", "Authorization"}),
-		handlers.AllowedMethods([]string{"POST", "GET", "OPTIONS"}),
+		handlers.AllowedMethods([]string{"POST", "GET", "OPTIONS", "DELETE"}),
 	))
 
 	api1.HandleFunc("/create", s.FormsCreatingHttp()).Methods("POST", "OPTIONS")
