@@ -9,8 +9,9 @@ func Auth_GetAttrs(url string) (string, int, error) {
 	type RespUserDTO struct {
 		Name string `json:"user"`
 	}
+
 	res, err := http.Get(url)
-	if err != nil {
+	if err != nil || res.StatusCode != http.StatusOK {
 		return "", http.StatusConflict, err
 	}
 
