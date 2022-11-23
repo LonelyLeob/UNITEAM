@@ -135,7 +135,7 @@ func (s *Server) AnswerCreatingField() http.HandlerFunc {
 func (s *Server) GetFormsByAuthorUUID() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		headerparts := strings.Split(r.Header.Get("Authorization"), " ")
-		name, code, err := Auth_GetAttrs(fmt.Sprintf("http://authenticate:7000/api/v1/check?token=%s", headerparts[1]))
+		name, code, err := Auth_GetAttrs(fmt.Sprintf("http://authenticate:7000/api/v1/attrs?token=%s", headerparts[1]))
 		if err != nil {
 			errJSON(w, code, err)
 		}
