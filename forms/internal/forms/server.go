@@ -48,6 +48,12 @@ func (s *Server) configureDB(url string) {
 		log.Fatal(err)
 	}
 
+	s.setMigrations(db)
+
+	s.store = NewStore(db)
+}
+
+func (s *Server) setMigrations(db *sql.DB) {
 	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	if err != nil {
 		log.Fatal(err)
@@ -61,27 +67,26 @@ func (s *Server) configureDB(url string) {
 	}
 
 	m.Up()
-
-	s.store = NewStore(db)
 }
 
 // set up routes to get requests
 func (s *Server) setupRoutes() {
 	api1 := s.handler.PathPrefix("/api/v1").Subrouter()
 
-	api1.Use(handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://localhost:3000"}),
-		handlers.AllowedHeaders([]string{"Origin", "Authorization"}),
-		handlers.AllowedMethods([]string{"POST", "GET", "OPTIONS", "DELETE"}),
-	))
+	api1.Use(
+		handlers.CORS(
+			handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+			handlers.AllowedHeaders([]string{"Origin", "Authorization"}),
+			handlers.AllowedMethods([]string{http.MethodPost, http.MethodGet, http.MethodOptions, http.MethodDelete}),
+		))
 
-	api1.HandleFunc("/create", s.FormsCreatingHttp()).Methods("POST", "OPTIONS")
-	api1.HandleFunc("/create/field", s.FieldCreatingForm()).Methods("POST", "OPTIONS")
-	api1.HandleFunc("/create/answer", s.AnswerCreatingField()).Methods("POST", "OPTIONS")
+	api1.HandleFunc("/create", s.FormsCreatingHttp()).Methods(http.MethodPost, http.MethodOptions)
+	api1.HandleFunc("/create/field", s.FieldCreatingForm()).Methods(http.MethodPost, http.MethodOptions)
+	api1.HandleFunc("/create/answer", s.AnswerCreatingField()).Methods(http.MethodPost, http.MethodOptions)
 
-	api1.HandleFunc("/get/forms", s.GetFormsByAuthorUUID()).Methods("GET", "OPTIONS")
+	api1.HandleFunc("/get/forms", s.GetFormsByAuthorUUID()).Methods(http.MethodGet, http.MethodOptions)
 
-	api1.HandleFunc("/delete", s.DeleteFormByFormUuid()).Methods("DELETE", "OPTIONS")
-	api1.HandleFunc("/delete/field", s.DeleteFieldById()).Methods("DELETE", "OPTIONS")
-	api1.HandleFunc("/delete/answer", s.DeleteAnswerById()).Methods("DELETE", "OPTIONS")
+	api1.HandleFunc("/delete", s.DeleteFormByFormUuid()).Methods(http.MethodDelete, http.MethodOptions)
+	api1.HandleFunc("/delete/field", s.DeleteFieldById()).Methods(http.MethodDelete, http.MethodOptions)
+	api1.HandleFunc("/delete/answer", s.DeleteAnswerById()).Methods(http.MethodDelete, http.MethodOptions)
 }

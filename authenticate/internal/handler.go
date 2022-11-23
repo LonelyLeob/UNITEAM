@@ -10,9 +10,9 @@ import (
 )
 
 const (
-	secret = "/secret"
-	token  = "/authorize"
-	reg    = "/registration"
+	attrs = "/attrs"
+	token = "/authorize"
+	reg   = "/registration"
 )
 
 type Handler interface {
@@ -39,15 +39,16 @@ func (h *handler) Register(store Storage, url, web, csrfkey string) {
 	api1 := h.router.PathPrefix("/api/v1").Subrouter()
 
 	api1.Use(handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://localhost:3000", "http://localhost:3000/", "http://localhost:5433"}),
-		handlers.AllowedHeaders([]string{"Origin", "Content-Type", "Authorization"}),
-		handlers.AllowedMethods([]string{"POST", "GET", "OPTIONS", "HEAD"}),
-		handlers.AllowCredentials()),
-	)
-	api1.HandleFunc(token, h.Authorize()).Methods(http.MethodPost)
-	api1.HandleFunc(reg, h.Registration()).Methods(http.MethodPost)
+		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedHeaders([]string{"Origin", "Authorization"}),
+		handlers.AllowedMethods([]string{"POST", "GET", "OPTIONS"}),
+	))
 
-	log.Println("app has been started successfull")
+	api1.HandleFunc(token, h.Authorize()).Methods(http.MethodPost, http.MethodOptions)
+	api1.HandleFunc(reg, h.Registration()).Methods(http.MethodPost, http.MethodOptions)
+	api1.HandleFunc(attrs, h.GetTokenAttrs()).Methods(http.MethodGet)
+
+	log.Println("app has been started successfully")
 
 	log.Fatal(http.ListenAndServe(web, h.router))
 }
@@ -131,5 +132,23 @@ func (h *handler) Registration() http.HandlerFunc {
 		}
 
 		sendCredentials(w, access, refresh)
+	}
+}
+
+func (h *handler) GetTokenAttrs() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		tokenstr := r.URL.Query().Get("token")
+		if tokenstr == "" {
+			errJSON(w, http.StatusUnauthorized, http.ErrAbortHandler)
+			return
+		}
+
+		name, err := ParseTokenFromHeader(tokenstr, h.skey)
+		if err != nil {
+			errJSON(w, http.StatusConflict, err)
+			return
+		}
+
+		toJSON(w, http.StatusOK, map[string]string{"user": name})
 	}
 }

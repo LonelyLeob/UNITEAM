@@ -51,6 +51,7 @@ services:
     build: ./forms
     depends_on:
       - db
+      - auth
     restart: always
   messanger:
     container_name: messanger
@@ -61,3 +62,4 @@ services:
     depends_on:
       - mongoservice
       - mongo-express
+      - auth

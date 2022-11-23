@@ -14,7 +14,7 @@ type User struct {
 	role     string
 }
 
-type JWTClaims struct {
+type AccessClaims struct {
 	*jwt.RegisteredClaims
 	Name  string `json:"name"`
 	Email string `json:"email,omitempty"`

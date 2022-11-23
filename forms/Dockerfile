@@ -3,8 +3,8 @@ FROM golang:latest
 COPY ./ ./
 
 ENV GOPATH=/
-ENV REM_HOSTF=forms
-ENV REM_PORTF=8080
+ENV REM_HOST=forms
+ENV REM_PORT=8080
 ENV S_KEY=nadya
 ENV HOST=dbservice
 ENV PORT=5432

@@ -12,7 +12,7 @@ func createAccessToken(user *User, skey interface{}) (string, error) {
 	iat := time.Now()
 	exp := time.Now().Add(time.Duration(15 * time.Minute))
 
-	atoken := jwt.NewWithClaims(jwt.SigningMethodHS256, &JWTClaims{
+	atoken := jwt.NewWithClaims(jwt.SigningMethodHS256, &AccessClaims{
 		RegisteredClaims: &jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(exp),
 			IssuedAt:  jwt.NewNumericDate(iat),
@@ -35,7 +35,7 @@ func createRefreshToken(user *User, skey interface{}) (string, error) {
 	iat := time.Now()
 	exp := time.Now().Add(time.Duration(72 * time.Hour))
 
-	rtoken := jwt.NewWithClaims(jwt.SigningMethodHS256, &JWTClaims{
+	rtoken := jwt.NewWithClaims(jwt.SigningMethodHS256, &AccessClaims{
 		RegisteredClaims: &jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(exp),
 			IssuedAt:  jwt.NewNumericDate(iat),
@@ -73,4 +73,24 @@ func sendCredentials(w http.ResponseWriter, atoken, rtoken string) {
 		"access":  atoken,
 		"refresh": rtoken,
 	})
+}
+
+func ParseTokenFromHeader(tokenstr string, signingKey []byte) (string, error) {
+	token, err := jwt.ParseWithClaims(tokenstr, &AccessClaims{}, func(t *jwt.Token) (interface{}, error) {
+		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errUnexpectedMethod
+		}
+
+		return signingKey, nil
+	})
+	if err != nil {
+		return "", errParseConflict
+	}
+
+	claims, ok := token.Claims.(*AccessClaims)
+	if ok && token.Valid {
+		return claims.Name, nil
+	}
+
+	return "", errInfo
 }

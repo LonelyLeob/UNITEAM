@@ -17,8 +17,8 @@ func (c *ConfigDatabase) GetFullDBAddr() string {
 }
 
 type ConfigRemote struct {
-	Port       string `env:"REM_PORTF"`
-	Host       string `env:"REM_HOSTF"`
+	Port       string `env:"REM_PORT"`
+	Host       string `env:"REM_HOST"`
 	SigningKey string `env:"S_KEY"`
 }
 

@@ -2,51 +2,53 @@ package forms
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/google/uuid"
 )
 
 func (s *Server) FormsCreatingHttp() http.HandlerFunc {
-	type Request struct {
+	type ReqFormsDTO struct {
 		Name   string `json:"name"`
 		Desc   string `json:"desc"`
 		Anonym bool   `json:"anon"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		token, err := checkAuth(r.Header.Get("Authorization"))
+		headerparts := strings.Split(r.Header.Get("Authorization"), " ")
+
+		name, code, err := Auth_GetAttrs(fmt.Sprintf("http://authenticate:7000/api/v1/attrs?token=%s", headerparts[1]))
 		if err != nil {
-			errJSON(w, http.StatusUnauthorized, err)
-			return
+			errJSON(w, code, err)
 		}
 
-		req := &Request{}
-		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
+		freq := &ReqFormsDTO{}
+		if err := json.NewDecoder(r.Body).Decode(freq); err != nil {
 			errJSON(w, http.StatusBadRequest, err)
 			return
 		}
 
-		author, err := ParseToken(token, s.signingKey)
-		if err != nil {
-			errJSON(w, http.StatusBadRequest, errBadToParseToken)
-			return
-		}
+		if code == http.StatusOK {
+			fuid := uuid.New()
+			f := &Form{
+				Uuid:        fuid,
+				Name:        freq.Name,
+				Description: freq.Desc,
+				IsAnonym:    freq.Anonym,
+				AuthorName:  name,
+			}
 
-		fuid := uuid.New()
-		f := &Form{
-			Uuid:        fuid,
-			Name:        req.Name,
-			Description: req.Desc,
-			IsAnonym:    req.Anonym,
-			AuthorName:  author,
-		}
-
-		if err := s.store.Forms().CreateForm(f); err != nil {
-			errJSON(w, http.StatusUnprocessableEntity, err)
-			return
+			if err := s.store.Forms().CreateForm(f); err != nil {
+				errJSON(w, http.StatusUnprocessableEntity, err)
+				return
+			} else {
+				toJSON(w, http.StatusCreated, f)
+			}
 		} else {
-			toJSON(w, http.StatusCreated, f)
+			errJSON(w, code, errCodeIsNotOK)
+			return
 		}
 	}
 }
@@ -57,12 +59,7 @@ func (s *Server) FieldCreatingForm() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		token, err := checkAuth(r.Header.Get("Authorization"))
-		if err != nil {
-			errJSON(w, http.StatusUnauthorized, err)
-			return
-		}
-		_, err = ParseToken(token, s.signingKey)
+		_, err := ParseTokenFromHeader(r.Header.Get("Authorization"), s.signingKey)
 		if err != nil {
 			errJSON(w, http.StatusBadRequest, errBadToParseToken)
 			return
@@ -74,8 +71,7 @@ func (s *Server) FieldCreatingForm() http.HandlerFunc {
 			return
 		}
 
-		params := r.URL.Query()
-		form := params.Get("form")
+		form := r.URL.Query().Get("form")
 
 		fiuid, err := uuid.Parse(form)
 		if err != nil {
@@ -103,12 +99,7 @@ func (s *Server) AnswerCreatingField() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		token, err := checkAuth(r.Header.Get("Authorization"))
-		if err != nil {
-			errJSON(w, http.StatusUnauthorized, err)
-			return
-		}
-		_, err = ParseToken(token, s.signingKey)
+		_, err := ParseTokenFromHeader(r.Header.Get("Authorization"), s.signingKey)
 		if err != nil {
 			errJSON(w, http.StatusBadRequest, errBadToParseToken)
 			return
@@ -120,8 +111,7 @@ func (s *Server) AnswerCreatingField() http.HandlerFunc {
 			return
 		}
 
-		params := r.URL.Query()
-		field := params.Get("field")
+		field := r.URL.Query().Get("field")
 
 		a := &VariableAnswers{
 			Answer: req.Answer,
@@ -144,32 +134,25 @@ func (s *Server) AnswerCreatingField() http.HandlerFunc {
 
 func (s *Server) GetFormsByAuthorUUID() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		token, err := checkAuth(r.Header.Get("Authorization"))
+		headerparts := strings.Split(r.Header.Get("Authorization"), " ")
+		name, code, err := Auth_GetAttrs(fmt.Sprintf("http://authenticate:7000/api/v1/check?token=%s", headerparts[1]))
 		if err != nil {
-			errJSON(w, http.StatusUnauthorized, err)
-			return
+			errJSON(w, code, err)
 		}
 
-		author, err := ParseToken(token, s.signingKey)
-		if err != nil {
-			errJSON(w, http.StatusBadRequest, errBadToParseToken)
-			return
-		}
-
-		forms, err := s.store.Forms().GetAllFormsByAuthorUUID(author)
+		f, err := s.store.Forms().GetAllFormsByAuthorUUID(name)
 		if err != nil {
 			errJSON(w, http.StatusUnauthorized, errNoForms)
 			return
 		}
 
-		toJSON(w, http.StatusOK, forms)
+		toJSON(w, http.StatusOK, f)
 	}
 }
 
 func (s *Server) DeleteFormByFormUuid() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		params := r.URL.Query()
-		uuid := params.Get("form")
+		uuid := r.URL.Query().Get("form")
 		if err := s.store.Forms().DeleteAllFormByUuid(uuid); err != nil {
 			errJSON(w, http.StatusInternalServerError, err)
 			return
@@ -181,8 +164,7 @@ func (s *Server) DeleteFormByFormUuid() http.HandlerFunc {
 
 func (s *Server) DeleteFieldById() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		params := r.URL.Query()
-		uuid := params.Get("id")
+		uuid := r.URL.Query().Get("id")
 		if err := s.store.Forms().DeleteOneFieldByFieldId(uuid); err != nil {
 			errJSON(w, http.StatusInternalServerError, err)
 			return
