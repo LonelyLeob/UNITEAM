@@ -1,0 +1,21 @@
+.black__window {
+    background-color: black;
+    height: 600px;
+    width: 100%;
+    color: white;
+    padding-top: 200px;
+    margin-top: 50px;
+}
+.btn__send {
+    width: 100px;
+}
+.inp__mes{
+    height: 20px;
+    width: 400px;
+}
+.window__user{
+    background-color: blueviolet;
+    height: 40px;
+    width: 100%;
+    margin-top: 590px;
+}
