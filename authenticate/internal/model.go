@@ -1,8 +1,6 @@
 package internal
 
 import (
-	"errors"
-
 	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -16,9 +14,13 @@ type User struct {
 
 type AccessClaims struct {
 	*jwt.RegisteredClaims
-	Name  string `json:"name"`
-	Email string `json:"email,omitempty"`
-	Role  string `json:"role,omitempty"`
+	Name string `json:"name"`
+	Role string `json:"role,omitempty"`
+}
+
+type RefreshClaims struct {
+	*jwt.RegisteredClaims
+	Email string `json:"email"`
 }
 
 func (u *User) HashPassword(password string) error {
@@ -35,7 +37,7 @@ func (u *User) HashPassword(password string) error {
 
 func (u *User) CheckForRequiredParams() error {
 	if u.name == "" || u.password == "" || u.email == "" {
-		return errors.New("one of fields empty, please enter data")
+		return errFieldsMustBeNotEmpty
 	}
 	return nil
 }

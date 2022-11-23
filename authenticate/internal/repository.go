@@ -9,6 +9,7 @@ import (
 type Repos interface {
 	GetUser(*User, string) (*User, error)
 	CreateUser(*User) error
+	SearchUserByEmail(user *User) error
 }
 
 type repos struct {
@@ -49,10 +50,23 @@ func (r *repos) CreateUser(user *User) error {
 		user.role,
 		user.email,
 		time.Now().Unix(),
-	).Scan(&user.name); err != nil {
+	).Scan(
+		&user.name,
+	); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+func (r *repos) SearchUserByEmail(user *User) error {
+	if err := r.store.conn.QueryRow("SELECT name, role FROM users WHERE email = $1",
+		user.email).Scan(
+		&user.name,
+		&user.role,
+	); err != nil {
+		return err
+	}
 	return nil
 }
 

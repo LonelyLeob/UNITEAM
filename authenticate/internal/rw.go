@@ -18,9 +18,8 @@ func createAccessToken(user *User, skey interface{}) (string, error) {
 			IssuedAt:  jwt.NewNumericDate(iat),
 			Issuer:    "UNIAUTH",
 		},
-		Name:  user.name,
-		Email: user.email,
-		Role:  user.role,
+		Name: user.name,
+		Role: user.role,
 	})
 
 	access, err := atoken.SignedString(skey)
@@ -35,13 +34,13 @@ func createRefreshToken(user *User, skey interface{}) (string, error) {
 	iat := time.Now()
 	exp := time.Now().Add(time.Duration(72 * time.Hour))
 
-	rtoken := jwt.NewWithClaims(jwt.SigningMethodHS256, &AccessClaims{
+	rtoken := jwt.NewWithClaims(jwt.SigningMethodHS256, &RefreshClaims{
 		RegisteredClaims: &jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(exp),
 			IssuedAt:  jwt.NewNumericDate(iat),
 			Issuer:    "UNIAUTH",
 		},
-		Name: user.name,
+		Email: user.email,
 	})
 
 	refresh, err := rtoken.SignedString(skey)
@@ -75,7 +74,7 @@ func sendCredentials(w http.ResponseWriter, atoken, rtoken string) {
 	})
 }
 
-func ParseTokenFromHeader(tokenstr string, signingKey []byte) (string, error) {
+func ParseAccessToken(tokenstr string, signingKey []byte) (string, error) {
 	token, err := jwt.ParseWithClaims(tokenstr, &AccessClaims{}, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errUnexpectedMethod
@@ -90,6 +89,26 @@ func ParseTokenFromHeader(tokenstr string, signingKey []byte) (string, error) {
 	claims, ok := token.Claims.(*AccessClaims)
 	if ok && token.Valid {
 		return claims.Name, nil
+	}
+
+	return "", errInfo
+}
+
+func ParseRefreshToken(tokenstr string, signingKey []byte) (string, error) {
+	token, err := jwt.ParseWithClaims(tokenstr, &RefreshClaims{}, func(t *jwt.Token) (interface{}, error) {
+		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errUnexpectedMethod
+		}
+
+		return signingKey, nil
+	})
+	if err != nil {
+		return "", errParseConflict
+	}
+
+	claims, ok := token.Claims.(*RefreshClaims)
+	if ok && token.Valid {
+		return claims.Email, nil
 	}
 
 	return "", errInfo

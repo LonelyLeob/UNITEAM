@@ -10,9 +10,10 @@ import (
 )
 
 const (
-	attrs = "/attrs"
-	token = "/authorize"
-	reg   = "/registration"
+	attrs  = "/attrs"
+	token  = "/authorize"
+	reg    = "/registration"
+	update = "/update"
 )
 
 type Handler interface {
@@ -47,6 +48,7 @@ func (h *handler) Register(store Storage, url, web, csrfkey string) {
 	api1.HandleFunc(token, h.Authorize()).Methods(http.MethodPost, http.MethodOptions)
 	api1.HandleFunc(reg, h.Registration()).Methods(http.MethodPost, http.MethodOptions)
 	api1.HandleFunc(attrs, h.GetTokenAttrs()).Methods(http.MethodGet)
+	api1.HandleFunc(update, h.UpdateCredentials()).Methods(http.MethodGet, http.MethodOptions)
 
 	log.Println("app has been started successfully")
 
@@ -143,12 +145,53 @@ func (h *handler) GetTokenAttrs() http.HandlerFunc {
 			return
 		}
 
-		name, err := ParseTokenFromHeader(tokenstr, h.skey)
+		name, err := ParseAccessToken(tokenstr, h.skey)
 		if err != nil {
 			errJSON(w, http.StatusConflict, err)
 			return
 		}
 
 		toJSON(w, http.StatusOK, map[string]string{"user": name})
+	}
+}
+
+func (h *handler) UpdateCredentials() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		refresh := r.URL.Query().Get("ref")
+		if refresh == "" {
+			errJSON(w, http.StatusBadRequest, errEmptyHeader)
+			return
+		}
+
+		email, err := ParseRefreshToken(refresh, h.skey)
+		if err != nil {
+			errJSON(w, http.StatusUnprocessableEntity, err)
+			return
+		}
+
+		u := &User{
+			email: email,
+		}
+
+		if err := h.store.Web().SearchUserByEmail(u); err != nil {
+			errJSON(w, http.StatusBadRequest, errInfo)
+			return
+		}
+
+		updacc, err := createAccessToken(u, h.skey)
+		if err != nil {
+			errJSON(w, http.StatusBadRequest, err)
+			return
+		}
+
+		updref, err := createRefreshToken(u, h.skey)
+		if err != nil {
+			errJSON(w, http.StatusBadRequest, err)
+			return
+		}
+		toJSON(w, http.StatusOK, map[string]string{
+			"access":  updacc,
+			"refresh": updref,
+		})
 	}
 }
