@@ -59,12 +59,6 @@ func (s *Server) FieldCreatingForm() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		_, err := ParseTokenFromHeader(r.Header.Get("Authorization"), s.signingKey)
-		if err != nil {
-			errJSON(w, http.StatusBadRequest, errBadToParseToken)
-			return
-		}
-
 		req := &request{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			errJSON(w, http.StatusBadRequest, err)
@@ -99,12 +93,6 @@ func (s *Server) AnswerCreatingField() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		_, err := ParseTokenFromHeader(r.Header.Get("Authorization"), s.signingKey)
-		if err != nil {
-			errJSON(w, http.StatusBadRequest, errBadToParseToken)
-			return
-		}
-
 		req := &Request{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			errJSON(w, http.StatusBadRequest, err)
