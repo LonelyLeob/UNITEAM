@@ -1,7 +1,8 @@
 .formContainer{
     padding: 50px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25), -2px -2px 5px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    background-color: #ffffff;
+    border-radius: 4px;
     text-align: center;
     max-width: 700px;
     max-height: 700px;
@@ -43,4 +44,9 @@
 .formContainer .formContainerField{
     display: flex;
     justify-content: center;
+}
+
+.allFormContainer{
+    display: flex;
+    flex-direction: column-reverse
 }

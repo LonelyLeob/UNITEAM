@@ -1,58 +1,71 @@
 .signInContain{
-    margin-top: 150px ;
+    margin-top: 150px;
+
 }
 
 .signForm{
     padding: 50px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25), -2px -2px 5px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    border-radius: 4px;
     text-align: center;
-    max-width: 500px;
+    max-width: 400px;
     max-height: 500px;
     margin: auto;
+    background-color: white;
 }
 
 .signForm h1{
-    font-size: 20px;
-    margin-bottom: 40px;
-}
-
-.signForm .socialNet {
-    display: flex;
-    justify-content: center;
-
-}
-
-.signForm .socialNet p{
-    padding: 5px;
-    width: 80px;
-    border-radius: 8px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25), -2px -2px 5px rgba(0, 0, 0, 0.25);
-    background: linear-gradient(94.39deg, #048CFA 0.71%, #0C2CFD 98.42%);
-    color: white;
-    margin: 0 20px 40px 20px ;
+    font-size: 30px;
+    font-weight: lighter;
+    margin-bottom: 20px;
 }
 
 .signForm input{
-    margin: 5px 0 10px 0 ;
-    padding: 3px;
-    font-size: 15px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25), -2px -2px 5px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    letter-spacing: 1px;
+    padding: 10px;
+    outline: none;
+    width: 100%;
+    font-size: 100%;
+    margin-top: 20px;
 }
 
 .signForm button{
-    padding: 5px;
-    width: 100px;
+    font-size: 100%;
+    outline: 0;
+    box-sizing: border-box;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    border: 0;
+    border-radius: 4px;
+    background-color: rgb(159, 209, 243);
+    width: 100%;
     margin-top: 30px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25), -2px -2px 5px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    background: linear-gradient(94.39deg, #048CFA 0.71%, #0C2CFD 98.42%);
-    color: white;
-    font-size: 20px;
-    transition: 1s;
+    transition: 0.3s;
 }
 
 .signForm button:hover{
-    background: linear-gradient(94.39deg, #0c2cfd 0.71%, #048cfa 98.42%);
+    background-color: rgb(142, 185, 215);
+}
+
+.othersSign{
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 400px) {
+    .signForm{
+        max-width: 100%;
+        max-height: 100%;
+        padding: 5%;
+        margin: 0;
+    }
+    .signInContain{
+        padding: 0;
+        margin: 0 auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
 }

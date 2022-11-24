@@ -7,6 +7,7 @@ import "./Form.css"
 function AllForms(){
 
     const [forms, setForms] = useState([])
+
     let errText = "Создать форму"
     let notErrText = "Добавить форму"
 
@@ -36,13 +37,14 @@ function AllForms(){
     return(
         <div>
             <FalseForm text = {notErrText}/>
-            {forms.map((item, idx) => {
-                return(
-                    <div key={idx}>
-                        <Form item = {item}/>
-                    </div>
-                )
-            })}
+            <div className="allFormContainer">
+                {forms.map((item, idx) => {
+                    return(
+                        <div key={idx}>
+                            <Form item = {item}/>
+                        </div>
+                    )})}
+            </div>
         </div>
     )
 }

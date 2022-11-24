@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
+import "./modalStyle.css"
 
 function ModalAdd(){
 
@@ -42,13 +43,14 @@ function ModalAdd(){
         }
     }
 
+
 return(
     <>
-        <form action="">
-            <label htmlFor="">Название:<input value={formName} onChange={event => setFormName(event.target.value)} className="modalFormName" type="text"/></label><br/>
-            <label htmlFor="">Описание:<input value={formDescription} onChange={event => setFormDescription(event.target.value)} className="modalFormDesc" type="text"/></label><br/>
+        <form action="" className="modalForm">
+           <input placeholder="Название" value={formName} onChange={event => setFormName(event.target.value)} className="modalFormName" type="text"/>
+            <input placeholder="Описание" value={formDescription} onChange={event => setFormDescription(event.target.value)} className="modalFormDesc" type="text"/>
             <label htmlFor="">Сделать форму анонимной?<input checked={formAnon} onChange={(event) => setFormAnon(event.target.checked)} className="modalFormCheck" type="checkbox"/></label><br/>
-            <button type="submit" onClick={(e) => handleSubmit(e) }>Отправить</button>
+            <button type="submit" className="modalBtn" onClick={(e) => handleSubmit(e)}>Отправить</button>
         </form>
     </>
 )

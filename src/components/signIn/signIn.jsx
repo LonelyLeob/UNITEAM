@@ -25,6 +25,7 @@ function SignIn(){
             })
         }   catch (err) {
             console.log("u vas err")
+                alert("Введены некорректные данные")
         }
     }
 
@@ -32,28 +33,31 @@ function SignIn(){
 
     return(
         <div className="signInContain">
-            <form className="signForm">
-
-                <h1 className="formTitle"> <b>Авторизация</b> </h1>
-
-                <div className="socialNet">
-
-                    <p>Vk</p>
-                    <p>Telegram</p>
-
-                </div>
-                
-                <label>Имя пользователя:</label>
-                <br/>
-                <input value={name} onChange={(e) => setName(e.target.value)} name="name" type="text" required className=""/> <br/>
-
-                <label>Пароль:</label>
-                <br/>
-                <input value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" required className=""/><br/>
-
+            <div className="signForm">
+                <h1 className="formTitle">UNIVERCITY.Inc</h1>
+                <input placeholder="Логин" value={name} onChange={(e) => setName(e.target.value)} name="name" type="text"/> <br/>
+                <input placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password"/><br/>
                 <button className="" onClick={(e) => handleSubmit(e) } type="submit">Войти</button>
-            </form>
-
+                {/*<div className="othersSign">*/}
+                {/*    <p>Войти с помощью:</p>*/}
+                {/*    <div className="socialLink">*/}
+                {/*        <a href="" className="vkLink">*/}
+                {/*            <span className="icon"></span>*/}
+                {/*        </a>*/}
+                {/*        <a href="" className="fbLink">*/}
+                {/*            <span className="icon"></span>*/}
+                {/*        </a>*/}
+                {/*        <a href="" className="googleLink">*/}
+                {/*            <span className="icon"></span>*/}
+                {/*        </a>*/}
+                {/*        <a href="" className="qrLink">*/}
+                {/*            <span className="icon"></span>*/}
+                {/*        </a>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                {/*<Link to={}></Link>*/}
+                <button className="" type="submit">Создать аккаунт</button>
+            </div>
 
         </div>
     )

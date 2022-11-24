@@ -33,32 +33,14 @@ function SignUp(){
 
     }
 
-
     return (
         <div className="signInContain">
             <form method="POST" className="addUserForm" >
-                <h1 className="formTitle"> <b>Регистрация</b> </h1>
+                <h1 className="formTitle">UNIVERCITY.Inc</h1>
 
-                <div className="socialNet">
-
-                    <p>Vk</p>
-                    <p>Telegram</p>
-
-                </div>
-
-                <label htmlFor="" className="">Имя пользователя:</label>
-                <br/>
-                <input value={name} onChange={event => setName(event.target.value)} name="name" type="text" required className=""/> 
-                <br/>
-
-                <label htmlFor="" className="">Пароль:</label>
-                <br/>
-                <input value={password} onChange={event => setPassword(event.target.value)} name="password" type="password" required className=""/>
-                <br/>
-
-                <label htmlFor="" className="">E-mail:</label><br/>
-                <input value={email} onChange={event => setEmail(event.target.value)} name="email" type="text" required className=""/>
-                <br/>
+                <input value={name} onChange={event => setName(event.target.value)} name="name" type="text" placeholder="Логин" required/>
+                <input value={password} onChange={event => setPassword(event.target.value)} name="password" type="password" placeholder="Пароль" required/>
+                <input value={email} onChange={event => setEmail(event.target.value)} name="email" type="email" placeholder="E-mail" required/>
 
                 <button className="" onClick={(e) => handleSubmit(e) } type="submit">Создать аккаунт</button>
             </form>
