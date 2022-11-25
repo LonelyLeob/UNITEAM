@@ -3,10 +3,10 @@ import axios from "axios"
 
 function ChangeAnswers(props){
 
-    let handleDelete = async () => {
+    let handleDelete = async (id) => {
         let result = window.confirm("Вы уверенны?");
             if (result === true){
-                let res = await axios.delete(`http://localhost:8080/api/v1/delete/answer?id=${props.id}`)
+                let res = await axios.delete(`http://localhost:8080/api/v1/delete/answer?id=${id}`)
             }
 }
 
@@ -17,7 +17,7 @@ function ChangeAnswers(props){
                     <>
                     <div key={idx} className="changeAnswers">
                         <p>{item.Answer}</p>
-                        <button className="answerDelBtn" onClick={() => {handleDelete()}}>X</button>
+                        <button className="answerDelBtn" onClick={() => {handleDelete(item.id)}}>X</button>
                     </div><br/>
                     </>
                 );

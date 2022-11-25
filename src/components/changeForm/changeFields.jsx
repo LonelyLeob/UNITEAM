@@ -4,10 +4,10 @@ import axios from "axios"
 
 function ChangeFields(props){
 
-    let handleDelete = async () => {
+    let handleDelete = async (id) => {
         let result = window.confirm("Вы уверенны?");
             if (result === true){
-                let res = await axios.delete(`http://localhost:8080/api/v1/delete/field?id=${props.uuid}`)
+                let res = await axios.delete(`http://uni-team-inc.online:8080/api/v1/delete/field?id=${id}`)
             }
 }
 
@@ -18,7 +18,7 @@ function ChangeFields(props){
                         <div className="changeFields" key={idx}>
                                 <div className="wrapper">
                                     <p>{item.Quiz}</p>
-                                    <button className="fieldsDelBtn" onClick={() => {handleDelete()}}>X</button>
+                                    <button className="fieldsDelBtn" onClick={() => {handleDelete(item.Id)}}>X</button>
                                 </div>
                             <br/>
                             <ChangeFieldsAnsw fieldsId={item.Id} fieldsAnswers={item.Answers}/>
