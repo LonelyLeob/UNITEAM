@@ -23,7 +23,7 @@ function ChangeFieldsAnsw(props){
         return(
             <>
             <div className="wrapperAnsw">
-                <ChangeAnswers answers={props.fieldsAnswers}/>
+                <ChangeAnswers answers={props.fieldsAnswers} id={id}/>
                 <div className="wrapperBtn">
                     <input type="text" placeholder="Добавить ответ" maxLength="50" value={answer} onChange={event => setAnswer(event.target.value)}/>
                 <button className="btn" onClick={(e) => {handleSubmit(e)}}>+</button>

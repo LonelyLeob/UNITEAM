@@ -50,7 +50,7 @@ function ChangeForm() {
                                 <button className="btn" onClick={(e) => {handleSubmit(e)}}>+</button>
                             </div>
                         </div><br/>
-                    <ChangeFields fields={data.Fields}/>
+                    <ChangeFields fields={data.Fields} uuid={uuid}/>
                 </div>
             </div>
         )}

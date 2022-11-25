@@ -1,11 +1,9 @@
 .changeContainer{
-    max-width: 650px;
+    max-width: 700px;
     font-size: 18px;
     font-weight: normal;
     margin:auto;
-    background-color: white;
     padding: 10px;
-    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
 .btnDel{
@@ -32,21 +30,38 @@
 .changeContainerContent h1{
     font-size: 25px;
     font-weight: lighter;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
+.changeContainerContent {
+    padding: 20px;
+    border-radius: 5px;
+}
+
 .changeFields{
-    padding: 9px;
+    padding: 20px;
     border-radius: 5px;
     margin-bottom: 20px;
     background-color: white;
+    /* border: 1px solid black; */
 }
 
 .wrapper{
+    display: flex;  
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid ;
     border-bottom-color: white;
     padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.116) ;
+    width: 100%;
+}
+
+.changeAnswers{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .queryAnsw{
@@ -59,10 +74,16 @@
 }
 
 .wrapperBtn input{
-    border-radius: 3px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    letter-spacing: 1px;
+    padding: 7px;
+    outline: none;
+    width: 80%;
+    margin: 10px 0 10px 0;
+    width: 50%;
     font-size: 16px;
-    padding: 2px;
-    box-shadow: 1px 1px 1px 1px #c7c7c7;
 }
 
 .btn{
@@ -81,3 +102,30 @@
     max-width: 5%;
 }
 
+.fieldsDelBtn{
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+    padding: 3px;
+    border-radius: 50%;
+    font-size: 10px;
+    background-color: #be3535;
+    width: 20px;
+    transition: 0.3s;
+}
+
+.answerDelBtn{
+    color: rgb(255, 0, 0);
+    font-weight: bolder;
+    padding: 2px;
+    border-radius: 5px;
+    font-size: 10px;
+    transition: 0.3s;
+}
+
+.fieldsDelBtn:hover{
+    background-color: #d82525;
+}
+
+.answerDelBtn:hover{
+    background-color: #d8252534;
+}
