@@ -67,6 +67,7 @@ func (h *handler) Register(store Storage, url, web, csrfkey string) {
 	log.Fatal(http.ListenAndServe(web, h.router))
 }
 
+// TODO: do redis checking for users tokens
 func (h *handler) Authorize() http.HandlerFunc {
 	type request struct {
 		Name     string `json:"name"`
