@@ -25,6 +25,14 @@ services:
     image: postgres:latest
     logging:
       driver: "json-file"
+    
+  tcache:
+    image: redis:latest
+    container_name: tcache
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --save 20 1 --loglevel warning --requirepass hellonadya
 
   auth:
     container_name: authenticate
@@ -33,6 +41,7 @@ services:
     build: ./authenticate
     depends_on:
       - db
+      - tcache
     restart: always
   forms:
     container_name: forms
@@ -41,7 +50,7 @@ services:
     build: ./forms
     depends_on:
       - db
-      - auth
+      - tcache
     restart: always
   messanger:
     container_name: messanger
@@ -51,4 +60,3 @@ services:
     build: ./messanger
     depends_on:
       - mongoservice
-      - auth

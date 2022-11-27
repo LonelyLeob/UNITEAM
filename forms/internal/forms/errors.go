@@ -10,5 +10,5 @@ var (
 	errParseInt           = errors.New("forms: given number not may int")
 	errAuthHeaderNotFound = errors.New("forms: cant found needed header in request")
 	errAuthHeaderInvalid  = errors.New("forms: cant parse requested header")
-	errCodeIsNotOK        = errors.New("authorization failed")
+	errCantParseToken     = errors.New("forms: cant parse token")
 )

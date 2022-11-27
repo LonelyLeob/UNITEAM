@@ -42,5 +42,5 @@ func (a *VariableAnswers) ParseFieldId(sid string) error {
 
 type AuthClaims struct {
 	jwt.RegisteredClaims
-	Username string `json:"name"`
+	Name string `json:"name"`
 }

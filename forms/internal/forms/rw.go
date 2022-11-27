@@ -2,7 +2,6 @@ package forms
 
 import (
 	"encoding/json"
-	"errors"
 	"net/http"
 	"strings"
 
@@ -25,17 +24,15 @@ func errJSON(w http.ResponseWriter, code int, err error) {
 }
 
 func ParseTokenFromHeader(header string, signingKey []byte) (string, error) {
-	token := header
-	if token == "" {
+	if header == "" {
 		return "", errAuthHeaderNotFound
 	}
 
-	headerparts := strings.Split(token, " ")
+	headerparts := strings.Split(header, " ")
 	if headerparts[0] != "Bearer" || len(headerparts) > 2 {
 		return "", errAuthHeaderInvalid
 	}
-	tokenstr := headerparts[0]
-	auth, err := jwt.ParseWithClaims(tokenstr, &AuthClaims{}, func(t *jwt.Token) (interface{}, error) {
+	auth, err := jwt.ParseWithClaims(headerparts[1], &AuthClaims{}, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errUnexpectedMethod
 		}
@@ -48,8 +45,8 @@ func ParseTokenFromHeader(header string, signingKey []byte) (string, error) {
 
 	claims, ok := auth.Claims.(*AuthClaims)
 	if ok && auth.Valid {
-		return claims.Username, nil
+		return claims.Name, nil
 	}
 
-	return "", errors.New("cant show info")
+	return "", errCantParseToken
 }

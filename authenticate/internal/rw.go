@@ -40,7 +40,8 @@ func createRefreshToken(user *User, skey interface{}) (string, error) {
 			IssuedAt:  jwt.NewNumericDate(iat),
 			Issuer:    "UNIAUTH",
 		},
-		Email: user.email,
+		Email:  user.email,
+		Device: user.meta.device,
 	})
 
 	refresh, err := rtoken.SignedString(skey)
@@ -94,7 +95,7 @@ func ParseAccessToken(tokenstr string, signingKey []byte) (string, error) {
 	return "", errInfo
 }
 
-func ParseRefreshToken(tokenstr string, signingKey []byte) (string, error) {
+func ParseRefreshToken(tokenstr string, signingKey []byte) (*RefreshClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenstr, &RefreshClaims{}, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errUnexpectedMethod
@@ -103,13 +104,13 @@ func ParseRefreshToken(tokenstr string, signingKey []byte) (string, error) {
 		return signingKey, nil
 	})
 	if err != nil {
-		return "", errParseConflict
+		return nil, errParseConflict
 	}
 
 	claims, ok := token.Claims.(*RefreshClaims)
 	if ok && token.Valid {
-		return claims.Email, nil
+		return claims, nil
 	}
 
-	return "", errInfo
+	return nil, errInfo
 }

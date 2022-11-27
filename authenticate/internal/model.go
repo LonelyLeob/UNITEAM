@@ -10,17 +10,24 @@ type User struct {
 	password string
 	email    string
 	role     string
+	meta     *UserMeta
+}
+
+type UserMeta struct {
+	device   string
+	lastSign int64
 }
 
 type AccessClaims struct {
 	*jwt.RegisteredClaims
 	Name string `json:"name"`
-	Role string `json:"role,omitempty"`
+	Role string `json:"role"`
 }
 
 type RefreshClaims struct {
 	*jwt.RegisteredClaims
-	Email string `json:"email"`
+	Email  string `json:"email"`
+	Device string `json:"device"`
 }
 
 func (u *User) HashPassword(password string) error {

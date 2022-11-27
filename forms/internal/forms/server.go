@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/L0nelyleob/UNITEAM/golang-forms/internal/forms/redisclient"
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
@@ -14,16 +15,28 @@ import (
 	_ "github.com/lib/pq"
 )
 
+var (
+	createForm   = "/create"
+	createField  = "/create/field"
+	createAnswer = "/create/answer"
+	getForms     = "/get/forms"
+	deleteForm   = "/delete"
+	deleteField  = "/delete/field"
+	deleteAnswer = "/delete/answer"
+)
+
 type Server struct {
 	signingKey []byte
 	handler    *mux.Router
 	store      *Store
+	redis      *redisclient.RedisRepo
 }
 
 func Spawn(key []byte) *Server {
 	return &Server{
 		signingKey: key,
 		handler:    mux.NewRouter(),
+		redis:      redisclient.SetRedis(),
 	}
 }
 
@@ -78,15 +91,15 @@ func (s *Server) setupRoutes() {
 			handlers.AllowedOrigins([]string{"http://localhost:3000"}),
 			handlers.AllowedHeaders([]string{"Origin", "Authorization"}),
 			handlers.AllowedMethods([]string{http.MethodPost, http.MethodGet, http.MethodOptions, http.MethodDelete}),
-		))
+		), s.Authorize_Middleware)
 
-	api1.HandleFunc("/create", s.FormsCreatingHttp()).Methods(http.MethodPost, http.MethodOptions)
-	api1.HandleFunc("/create/field", s.FieldCreatingForm()).Methods(http.MethodPost, http.MethodOptions)
-	api1.HandleFunc("/create/answer", s.AnswerCreatingField()).Methods(http.MethodPost, http.MethodOptions)
+	api1.HandleFunc(createForm, s.FormsCreatingHttp()).Methods(http.MethodPost, http.MethodOptions)
+	api1.HandleFunc(createField, s.FieldCreatingForm()).Methods(http.MethodPost, http.MethodOptions)
+	api1.HandleFunc(createAnswer, s.AnswerCreatingField()).Methods(http.MethodPost, http.MethodOptions)
 
-	api1.HandleFunc("/get/forms", s.GetFormsByAuthorUUID()).Methods(http.MethodGet, http.MethodOptions)
+	api1.HandleFunc(getForms, s.GetFormsByAuthorUUID()).Methods(http.MethodGet, http.MethodOptions)
 
-	api1.HandleFunc("/delete", s.DeleteFormByFormUuid()).Methods(http.MethodDelete, http.MethodOptions)
-	api1.HandleFunc("/delete/field", s.DeleteFieldById()).Methods(http.MethodDelete, http.MethodOptions)
-	api1.HandleFunc("/delete/answer", s.DeleteAnswerById()).Methods(http.MethodDelete, http.MethodOptions)
+	api1.HandleFunc(deleteForm, s.DeleteFormByFormUuid()).Methods(http.MethodDelete, http.MethodOptions)
+	api1.HandleFunc(deleteField, s.DeleteFieldById()).Methods(http.MethodDelete, http.MethodOptions)
+	api1.HandleFunc(deleteAnswer, s.DeleteAnswerById()).Methods(http.MethodDelete, http.MethodOptions)
 }
