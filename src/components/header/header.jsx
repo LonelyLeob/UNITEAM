@@ -1,12 +1,15 @@
 import "./headerStyle.css";
 import {Link} from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 
 
 
 function Header(){
 
+    let navigate = useNavigate()
     const outHandler = () => {
         localStorage.clear()
+        navigate("/")
     }
 
         if (localStorage.getItem("access") !== null) {
