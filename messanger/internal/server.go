@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -27,12 +28,19 @@ func (s *server) Serve() {
 	if err := s.mongoose.Connect(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("database connected")
+
+	api1 := s.router.PathPrefix("/api/v1").Subrouter()
+	api1.Use(
+		handlers.CORS(
+			handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+			handlers.AllowedHeaders([]string{"Origin", "Authorization"}),
+			handlers.AllowedMethods([]string{http.MethodPost, http.MethodGet, http.MethodOptions}),
+		))
 
 	fmt.Printf("app listening on port %s", s.cfgRemote.CreateDomainAddr())
 
-	s.router.HandleFunc("/send", s.SendMessageHandler()).Methods("POST")
-	s.router.HandleFunc("/messages", s.GetBatchMessages()).Methods("GET")
+	api1.HandleFunc("/send", s.SendMessageHandler()).Methods("POST")
+	api1.HandleFunc("/messages", s.GetBatchMessages()).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(s.cfgRemote.CreateDomainAddr(), s.router))
 }

@@ -4,7 +4,9 @@ go 1.19
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
+	github.com/felixge/httpsnoop v1.0.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
+	github.com/gorilla/handlers v1.5.1 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/ilyakaznacheev/cleanenv v1.4.0 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
