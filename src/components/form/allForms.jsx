@@ -3,6 +3,7 @@ import axios from "axios";
 import Form from "./Form"
 import FalseForm from "../falseForm/falseForm";
 import "./Form.css"
+import Header from "../header/header";
 
 function AllForms(){
 
@@ -26,7 +27,7 @@ function AllForms(){
 
     if (forms == null) {
         return (
-
+   
             <div className="error">
                 <FalseForm text = {errText}/>
                 <p className="HasnotForm">У вас нет форм</p>

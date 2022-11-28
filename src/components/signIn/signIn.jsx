@@ -1,11 +1,16 @@
 import "./signInStyle.css"
 import {useState} from "react";
 import axios from 'axios'
-
+import { useNavigate  } from "react-router-dom";
 
 function SignIn(){
     const[name, setName] = useState('')
     const[password, setPassword] = useState('')
+
+        let navigate = useNavigate()
+        const handleClick = () => {
+            navigate("/signUp") }
+
 
     let handleSubmit = async (e) => {
             e.preventDefault();
@@ -22,6 +27,7 @@ function SignIn(){
                 let refresh = data.data.refresh
                 localStorage.setItem("access", access)
                 localStorage.setItem("refresh", refresh)
+                navigate("/Form")
             })
         }   catch (err) {
             console.log("u vas err")
@@ -56,9 +62,8 @@ function SignIn(){
                 {/*    </div>*/}
                 {/*</div>*/}
                 {/*<Link to={}></Link>*/}
-                <button className="" type="submit">Создать аккаунт</button>
+                <button className="" type="submit" onClick={handleClick}>Создать аккаунт</button>
             </div>
-
         </div>
     )
 }

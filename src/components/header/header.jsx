@@ -4,6 +4,11 @@ import {Link} from "react-router-dom";
 
 
 function Header(){
+
+    const outHandler = () => {
+        localStorage.clear()
+    }
+
         if (localStorage.getItem("access") !== null) {
             return (
                 <div className="Header">
@@ -14,11 +19,9 @@ function Header(){
                                 <Link to="Form">Формы</Link>
                             </li>
                             <li>
-                                <Link to="signIn">Вход</Link>
+                                <button onClick={() => {outHandler()}}>Выход</button> 
                             </li>
-                            <li>
-                                <Link to="signUp">Регистрация</Link>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>

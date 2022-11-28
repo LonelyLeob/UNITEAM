@@ -1,13 +1,15 @@
 import axios from 'axios'
 import './signUpStyle.css'
 import {useState} from "react";
-
+import { useNavigate  } from "react-router-dom";
 
 function SignUp(){
 
     const[name,setName] = useState('')
     const[password,setPassword] = useState('')
     const[email,setEmail] = useState('')
+
+    let navigate = useNavigate()
 
     let handleSubmit = async (e) => {
             e.preventDefault();
@@ -26,6 +28,7 @@ function SignUp(){
                     let refresh = data.data.refresh
                     localStorage.setItem("access", access)
                     localStorage.setItem("refresh", refresh)
+                    navigate("/Form")
             })
         }   catch (err) {
             console.log("u vas err")
