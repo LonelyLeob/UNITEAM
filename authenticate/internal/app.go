@@ -12,6 +12,6 @@ func Initialize(key string) *App {
 	}
 }
 
-func (a *App) Start(web, url, csrf string) {
-	a.handler.Register(a.store, url, web, csrf)
+func (a *App) Start(web, url string) {
+	a.handler.Register(a.store, url, web)
 }

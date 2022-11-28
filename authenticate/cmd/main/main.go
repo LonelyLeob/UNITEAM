@@ -12,5 +12,5 @@ func main() {
 	cleanenv.ReadEnv(&cd)
 
 	a := internal.Initialize(cr.GetSKey())
-	a.Start(cr.GetFullWebAddr(), cd.GetFullDBAddr(), cr.CSRFKey)
+	a.Start(cr.GetFullWebAddr(), cd.GetFullDBAddr())
 }

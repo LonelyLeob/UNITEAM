@@ -29,7 +29,7 @@ services:
   tcache:
     image: redis:latest
     container_name: tcache
-    restart: always
+    restart: on-failure
     ports:
       - 6379:6379
     command: redis-server --save 20 1 --loglevel warning --requirepass hellonadya
@@ -42,7 +42,14 @@ services:
     depends_on:
       - db
       - tcache
-    restart: always
+    restart: on-failure
+    environment:
+      - DB_PORT=5432
+      - DB_HOST=dbservice
+      - DB_NAME=service
+      - DB_USER=user
+      - DB_PASSWORD=root
+      - REMOTE_PORT=7000
   forms:
     container_name: forms
     ports:
@@ -51,12 +58,25 @@ services:
     depends_on:
       - db
       - tcache
-    restart: always
+    restart: on-failure
+    environment:
+      - DB_PORT=5432
+      - DB_HOST=dbservice
+      - DB_NAME=service
+      - DB_USER=user
+      - DB_PASSWORD=root
+      - REMOTE_PORT=8080
   messanger:
     container_name: messanger
-    restart: always
     ports:
       - 9000:9000
     build: ./messanger
     depends_on:
       - mongoservice
+    restart: on-failure
+    environment:
+      - MONGO_HOST=mongoservice
+      - MONGO_PORT=27017
+      - MONGO_USER=root
+      - MONGO_PWD=root
+      - REMOTE_PORT=9000

@@ -21,7 +21,7 @@ const (
 )
 
 type Handler interface {
-	Register(store Storage, url, web, csrf string)
+	Register(store Storage, url, web string)
 }
 
 type handler struct {
@@ -38,7 +38,7 @@ func NewHandler(key string) Handler {
 	}
 }
 
-func (h *handler) Register(store Storage, url, web, csrfkey string) {
+func (h *handler) Register(store Storage, url, web string) {
 	h.store = store
 	h.store.Connect(url)
 

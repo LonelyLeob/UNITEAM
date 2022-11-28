@@ -8,14 +8,14 @@ import (
 )
 
 type ConfigRemote struct {
-	BindPort string `env:"RPORT"`
+	BindPort string `env:"REMOTE_PORT"`
 }
 
 type ConfigMongo struct {
-	Host     string `env:"MHOST"`
-	Port     string `env:"MPORT"`
-	User     string `env:"MUSER"`
-	Password string `env:"MPWD"`
+	Host     string `env:"MONGO_HOST"`
+	Port     string `env:"MONGO_PORT"`
+	User     string `env:"MONGO_USER"`
+	Password string `env:"MONGO_PWD"`
 }
 
 func SetConfigs() (*ConfigRemote, *ConfigMongo) {

@@ -5,11 +5,11 @@ import (
 )
 
 type ConfigDatabase struct {
-	Port     string `env:"PORT"`
-	Host     string `env:"HOST"`
-	Name     string `env:"NAME"`
-	User     string `env:"USER"`
-	Password string `env:"PASSWORD"`
+	Port     string `env:"DB_PORT"`
+	Host     string `env:"DB_HOST"`
+	Name     string `env:"DB_NAME"`
+	User     string `env:"DB_USER"`
+	Password string `env:"DB_PASSWORD"`
 }
 
 func (c *ConfigDatabase) GetFullDBAddr() string {
@@ -17,13 +17,12 @@ func (c *ConfigDatabase) GetFullDBAddr() string {
 }
 
 type ConfigRemote struct {
-	Port       string `env:"REM_PORT"`
-	Host       string `env:"REM_HOST"`
+	Port       string `env:"REMOTE_PORT"`
 	SigningKey string `env:"S_KEY"`
 }
 
 func (c *ConfigRemote) GetFullWebAddr() string {
-	return fmt.Sprintf("%s:%s", c.Host, c.Port)
+	return fmt.Sprintf(":%s", c.Port)
 }
 
 func (c *ConfigRemote) GetSKey() string {
