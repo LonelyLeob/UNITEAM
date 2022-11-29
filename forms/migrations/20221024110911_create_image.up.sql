@@ -33,3 +33,19 @@ CREATE TABLE IF NOT EXISTS users (
     email text not null unique,
     lastv bigint not null
 );
+
+CREATE TABLE IF NOT EXISTS courses (
+    id serial not null primary key,
+    title text not null,
+    cdesc text not null,
+    author varchar(200) not null
+);
+
+CREATE TABLE IF NOT EXISTS sections (
+    id serial not null primary key,
+    course_id int not null,
+    content text not null,
+        constraint fk_course
+            foreign key(course_id)
+                references courses(id)
+);

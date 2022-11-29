@@ -1,4 +1,4 @@
-package forms
+package internal
 
 import (
 	"encoding/json"

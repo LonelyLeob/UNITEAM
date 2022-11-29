@@ -40,7 +40,7 @@ func (a *VariableAnswers) ParseFieldId(sid string) error {
 	return nil
 }
 
-type AuthClaims struct {
+type UserClaims struct {
 	jwt.RegisteredClaims
 	Name string `json:"name"`
 }

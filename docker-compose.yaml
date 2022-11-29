@@ -80,3 +80,18 @@ services:
       - MONGO_USER=root
       - MONGO_PWD=root
       - REMOTE_PORT=9000
+  courses:
+    container_name: courses
+    ports:
+      - 6000:6000
+    build: ./courses
+    depends_on:
+      - db
+    restart: on-failure
+    environment:
+      - DB_PORT=5432
+      - DB_HOST=dbservice
+      - DB_NAME=service
+      - DB_USER=user
+      - DB_PASSWORD=root
+      - REMOTE_PORT=6000
