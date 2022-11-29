@@ -16,7 +16,6 @@
 .addUserForm h1{
     font-size: 30px;
     font-weight: lighter;
-    margin-bottom: 20px;
 }
 
 .addUserForm input{
@@ -48,4 +47,39 @@
 
 .addUserForm button:hover{
     background-color: rgb(142, 185, 215);
+}
+
+.backAuth{
+    padding: 3px;
+    background-color: rgb(159, 209, 243);
+    transition: 0.3s;
+    width: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.backAuth:hover{
+    background-color: rgb(142, 185, 215);
+}
+
+.btnBack{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 400px) {
+    .addUserForm{
+        max-width: 100%;
+        max-height: 100%;
+        padding: 5%;
+        margin: 0;
+    }
+    .signInContain{
+        padding: 0;
+        margin: 0 auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
 }

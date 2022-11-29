@@ -6,6 +6,7 @@ function ModalWin(){
 
     const [isModal, setModal] = useState(false);
 
+
     const Modal = ({ isVisible = false, title, onClose }) => {
         const keydownHandler = ({ key }) => {
             switch (key) {
@@ -15,6 +16,7 @@ function ModalWin(){
                 default:
             }
         }
+
 
         useEffect(() => {
             document.addEventListener('keydown', keydownHandler);
@@ -32,7 +34,7 @@ function ModalWin(){
                     </div>
                     <div className="modal-body">
                         <div className="modal-content">
-                            <ModalAdd/>
+                            <ModalAdd setModal = {setModal}/>
                         </div>
                     </div>
                     <div className="modal-footer"></div>

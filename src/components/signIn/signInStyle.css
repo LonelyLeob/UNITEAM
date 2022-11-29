@@ -55,6 +55,11 @@
     margin-top: 20px;
 }
 
+.validError{
+    margin-top: 10px;
+    color: #d82525;
+}
+
 @media screen and (max-width: 400px) {
     .signForm{
         max-width: 100%;
@@ -69,3 +74,4 @@
         max-height: 100%;
     }
 }
+

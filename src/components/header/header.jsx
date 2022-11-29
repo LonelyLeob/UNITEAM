@@ -35,12 +35,6 @@ function Header(){
             <div className="upMenu">
                 <h1 className="HeaderLogo">UNIVERSITY.Inc</h1>
                 <ul>
-                    <li>
-                        <Link to="signIn">Вход</Link>
-                    </li>
-                    <li>
-                        <Link to="signUp">Регистрация</Link>
-                    </li>
                 </ul>
             </div>
         </div>

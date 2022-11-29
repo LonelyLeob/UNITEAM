@@ -35,3 +35,9 @@
     border-bottom: 1px solid black;
     border-top: 1px solid black;
 }
+
+@media (max-width: 490px) {
+    .Header{
+        display: none;
+    }
+}

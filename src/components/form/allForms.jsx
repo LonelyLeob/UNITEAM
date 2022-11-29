@@ -8,9 +8,15 @@ import Header from "../header/header";
 function AllForms(){
 
     const [forms, setForms] = useState([])
+    const [state, setState] = useState(false)
+
+    // let addForm = (data) => {
+    //     setForms(prev => [...prev, data])
+    // }
 
     let errText = "Создать форму"
     let notErrText = "Добавить форму"
+
 
     useEffect(() => {
         axios
@@ -20,9 +26,7 @@ function AllForms(){
                 }})
             .then(data => {
                 setForms(data.data)
-            }).catch(err => {
-            console.log(err)
-        })
+            })
     }, [])
 
     if (forms == null) {
