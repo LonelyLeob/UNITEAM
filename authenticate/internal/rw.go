@@ -41,7 +41,7 @@ func createRefreshToken(user *User, skey interface{}) (string, error) {
 			Issuer:    "UNIAUTH",
 		},
 		Email:  user.email,
-		Device: user.meta.device,
+		Device: user.Meta.Device,
 	})
 
 	refresh, err := rtoken.SignedString(skey)

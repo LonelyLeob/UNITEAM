@@ -6,9 +6,6 @@ import (
 	"net/http"
 
 	"github.com/L0nelyleob/UNITEAM/golang-forms/internal/forms/redisclient"
-	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -61,25 +58,7 @@ func (s *Server) configureDB(url string) {
 		log.Fatal(err)
 	}
 
-	s.setMigrations(db)
-
 	s.store = NewStore(db)
-}
-
-func (s *Server) setMigrations(db *sql.DB) {
-	driver, err := postgres.WithInstance(db, &postgres.Config{})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	m, err := migrate.NewWithDatabaseInstance(
-		"file://migrations",
-		"service", driver)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	m.Up()
 }
 
 // set up routes to get requests

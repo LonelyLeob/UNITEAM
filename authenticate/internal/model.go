@@ -10,12 +10,14 @@ type User struct {
 	password string
 	email    string
 	role     string
-	meta     *UserMeta
+	Meta     *UserMeta
 }
 
 type UserMeta struct {
-	device   string
-	lastSign int64
+	Device       string
+	LastSign     int64
+	ActivityRate int
+	Refresh      string
 }
 
 type AccessClaims struct {

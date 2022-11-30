@@ -95,3 +95,7 @@ services:
       - DB_USER=user
       - DB_PASSWORD=root
       - REMOTE_PORT=6000
+  migrator:
+    container_name: migrator
+    build: ./migrator
+    restart: on-failure

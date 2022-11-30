@@ -84,8 +84,8 @@ func (h *handler) Authorize() http.HandlerFunc {
 		device := useragent.Parse(r.UserAgent())
 		user := &User{
 			name: req.Name,
-			meta: &UserMeta{
-				device: device.Device,
+			Meta: &UserMeta{
+				Device: device.Device,
 			},
 		}
 
@@ -133,9 +133,9 @@ func (h *handler) Registration() http.HandlerFunc {
 			password: req.Password,
 			email:    req.Email,
 			role:     "user",
-			meta: &UserMeta{
-				device:   device.Device,
-				lastSign: time.Now().Unix(),
+			Meta: &UserMeta{
+				Device:   device.Device,
+				LastSign: time.Now().Unix(),
 			},
 		}
 
@@ -203,9 +203,9 @@ func (h *handler) UpdateCredentials() http.HandlerFunc {
 
 		u := &User{
 			email: claims.Email,
-			meta: &UserMeta{
-				device:   device.Device,
-				lastSign: time.Now().Unix(),
+			Meta: &UserMeta{
+				Device:   device.Device,
+				LastSign: time.Now().Unix(),
 			},
 		}
 
