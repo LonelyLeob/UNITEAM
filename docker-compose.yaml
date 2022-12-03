@@ -35,21 +35,16 @@ services:
     command: redis-server --save 20 1 --loglevel warning --requirepass hellonadya
 
   auth:
-    container_name: authenticate
+    container_name: auth
     ports:
-      - 7000:7000
-    build: ./authenticate
+      - 4000:4000
+    build: ./auth
     depends_on:
       - db
       - tcache
     restart: on-failure
-    environment:
-      - DB_PORT=5432
-      - DB_HOST=dbservice
-      - DB_NAME=service
-      - DB_USER=user
-      - DB_PASSWORD=root
-      - REMOTE_PORT=7000
+    logging:
+      driver: "json-file"
   forms:
     container_name: forms
     ports:

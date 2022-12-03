@@ -3,7 +3,6 @@ package forms
 import (
 	"encoding/json"
 	"net/http"
-	"strings"
 
 	"github.com/google/uuid"
 )
@@ -163,21 +162,4 @@ func (s *Server) DeleteAnswerById() http.HandlerFunc {
 
 		toJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 	}
-}
-
-func (s *Server) Authorize_Middleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		headerparts := strings.Split(r.Header.Get("Authorization"), " ")
-		if len(headerparts) > 2 || headerparts[0] != "Bearer" {
-			errJSON(w, http.StatusUnauthorized, errAuthHeaderNotFound)
-			return
-		}
-
-		if err := s.redis.CompareTokens(headerparts[1]); err != nil {
-			errJSON(w, http.StatusUnauthorized, err)
-			return
-		}
-
-		next.ServeHTTP(w, r)
-	})
 }

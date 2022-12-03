@@ -27,11 +27,19 @@ CREATE TABLE IF NOT EXISTS answer (
 );
 
 CREATE TABLE IF NOT EXISTS users (
-    name text not null primary key,
-    password varchar(200) not null,
-    role text not null,
+    id UUID not null primary key,
+    name text not null unique,
     email text not null unique,
-    lastv bigint not null
+    password varchar(200) not null
+);
+
+CREATE TABLE IF NOT EXISTS meta (
+    id serial not null primary key,
+    uuid UUID not null,
+    lv bigint not null,
+    browser varchar(50),
+    os varchar(50),
+    refresh varchar(200)
 );
 
 CREATE TABLE IF NOT EXISTS courses (
