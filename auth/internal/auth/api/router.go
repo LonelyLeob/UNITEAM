@@ -66,7 +66,7 @@ func (s *Server) StartUp() {
 	go api1.HandleFunc(UserReg_Route, s.RegistrationUser_Handler()).Methods(http.MethodPost, http.MethodOptions)
 	go api1.HandleFunc(UserAuth_Route, s.AuthenticateUser_Handler()).Methods(http.MethodPost, http.MethodOptions)
 	go api1.HandleFunc(UserUpdateCred_Route, s.UpdateTokenUser_Handler()).Methods(http.MethodGet, http.MethodOptions)
-	go api1.HandleFunc(ForgetPwd_Route, s.ForgetPassword_Handler()).Methods(http.MethodPut, http.MethodOptions)
+	go api1.HandleFunc(ForgetPwd_Route, s.ForgetPassword_Handler()).Methods(http.MethodPost, http.MethodOptions)
 	go api1.HandleFunc(DeleteUser_Route, s.DeleteUser_Handler()).Methods(http.MethodDelete, http.MethodOptions)
 	go api1.HandleFunc(GetUser_Route, s.GetUser_Handler()).Methods(http.MethodGet, http.MethodOptions)
 	go api1.HandleFunc(UpdatePwd_Route, s.UpdatePassword_Handler()).Methods(http.MethodGet, http.MethodOptions)
