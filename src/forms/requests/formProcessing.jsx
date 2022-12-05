@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import GetUserForms from "./getUserForms";
 import ViewForms from "../form";
 import Header from "../../header/header";
-import Modal from "../modal/modalWin";
+import Modal from "../../modal/modalWin";
 import AddNewForm from "./addNewForm";
 
 function FormProcessing(){

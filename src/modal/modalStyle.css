@@ -83,7 +83,7 @@
     border: none;
     border-bottom: 1px solid black;
     letter-spacing: 1px;
-    padding: 10px;
+    padding: 0 0 10px 0;
     outline: none;
     width: 100%;
     font-size: 100%;
@@ -93,6 +93,10 @@
 .modal-content .modalFormCheck{
     margin-top: 25px;
     margin-left: 10px;
+}
+
+.modal-content p{
+    text-align: center;
 }
 
 .modal-content .modalBtn{

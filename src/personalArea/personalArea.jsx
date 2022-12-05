@@ -5,11 +5,20 @@ import {useEffect, useState} from "react";
 import ConvertUnix from "./requests/convertUnix";
 import DeleteUser from "./requests/deleteUser";
 import {useNavigate} from "react-router-dom";
+import Modal from "../modal/modalWin";
 
 function PersonalArea(){
 
     const[user, setUser] = useState([])
+    const [isModal, setModal] = useState(false);
+    const [password, setPassword] = useState('');
     const navigate = useNavigate()
+    let content =
+        <form action="" className="modalForm">
+            <input placeholder="Пароль" value={password} onChange={event => setPassword(event.target.value)} className="modalFormName" type="password" autoComplete="on"/>
+            <button type="submit" className="modalBtn" onClick={(e) =>  handleDelete(e)}>Удалить</button>
+            <p>Для удаления аккаунта введите пароль</p>
+        </form>
 
     useEffect(() => {
         GetUser(setUser)
@@ -19,7 +28,7 @@ function PersonalArea(){
 
     const handleDelete = async(e) => {
         e.preventDefault()
-        // await DeleteUser(user, pass)
+        await DeleteUser(user.name, password)
         localStorage.clear()
         navigate("/")
     }
@@ -29,7 +38,7 @@ function PersonalArea(){
             <Header/>
                 <div className="btnDelContainer">
                     <label> Удалить пользователя
-                    <button className="btnDel" onClick={(e) => {handleDelete(e)}}>-</button>
+                    <button className="btnDel" onClick={() => setModal(true)}>-</button>
                     </label>
                 </div>
             <div className="profileContainer">
@@ -57,6 +66,13 @@ function PersonalArea(){
                     </div>
                 </div>
             </div>
+
+            <Modal
+                isVisible={isModal}
+                title="Удаление пользователя"
+                content={content}
+                footer={<p></p>}
+                onClose={() => setModal(false)}/>
 
         </div>
     )
