@@ -1,7 +1,6 @@
 package auth
 
 import (
-	_ "authenticate/docs"
 	"authenticate/internal/auth/api"
 	"authenticate/internal/auth/store"
 	"context"
@@ -13,7 +12,6 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
-	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 var (
@@ -64,8 +62,6 @@ func (s *Server) StartUp() {
 
 		os.Exit(1)
 	}
-
-	s.router.PathPrefix(SwaggerDocs_Route).Handler(httpSwagger.WrapHandler)
 
 	api1 := s.router.PathPrefix("/api/v1").Subrouter()
 	api1.Use(handlers.CORS(
