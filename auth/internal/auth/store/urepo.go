@@ -3,14 +3,14 @@ package store
 import (
 	"authenticate/internal/auth/models"
 	"fmt"
-	"os"
 
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 )
 
 var (
-	debug = os.Getenv("DEBUG")
+	// debug = os.Getenv("DEBUG")
+	debug = "True"
 )
 
 const (

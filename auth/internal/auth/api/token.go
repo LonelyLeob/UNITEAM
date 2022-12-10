@@ -11,9 +11,9 @@ import (
 )
 
 type TokenGiver struct {
-	accessDuration  time.Duration
-	refreshDuration time.Duration
-	signingKey      []byte
+	AccessDuration  time.Duration
+	RefreshDuration time.Duration
+	SigningKey      []byte
 }
 
 type TokenSerializer struct {
@@ -23,9 +23,9 @@ type TokenSerializer struct {
 
 func NewGiver(adur, rdur time.Duration, skey string) *TokenGiver {
 	return &TokenGiver{
-		accessDuration:  adur,
-		refreshDuration: rdur,
-		signingKey:      []byte(skey),
+		AccessDuration:  adur,
+		RefreshDuration: rdur,
+		SigningKey:      []byte(skey),
 	}
 }
 
@@ -34,7 +34,7 @@ func (t *TokenGiver) CreatePairToken(user *models.User) (*TokenSerializer, error
 
 	// access token
 	iata := time.Now()
-	expa := time.Now().Add(time.Duration(t.accessDuration))
+	expa := time.Now().Add(time.Duration(t.AccessDuration))
 
 	atoken := jwt.NewWithClaims(jwt.SigningMethodHS256, &models.AccessClaims{
 		RegisteredClaims: &jwt.RegisteredClaims{
@@ -46,18 +46,18 @@ func (t *TokenGiver) CreatePairToken(user *models.User) (*TokenSerializer, error
 		Email: user.Email,
 	})
 
-	access, err := atoken.SignedString(t.signingKey)
+	access, err := atoken.SignedString(t.SigningKey)
 	if err != nil {
 		if os.Getenv("DEBUG") == "True" {
 			logrus.Error(err)
 		}
 
-		return nil, errCantSignString
+		return nil, ErrCantSignString
 	}
 
 	// refresh token
 	iatr := time.Now()
-	expr := time.Now().Add(time.Duration(t.refreshDuration))
+	expr := time.Now().Add(time.Duration(t.RefreshDuration))
 	rtoken := jwt.NewWithClaims(jwt.SigningMethodHS256, &models.RefreshClaims{
 		RegisteredClaims: &jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expr),
@@ -68,12 +68,12 @@ func (t *TokenGiver) CreatePairToken(user *models.User) (*TokenSerializer, error
 		Browser: user.Meta[0].Browser,
 	})
 
-	refresh, err := rtoken.SignedString(t.signingKey)
+	refresh, err := rtoken.SignedString(t.SigningKey)
 	if err != nil {
 		if os.Getenv("DEBUG") == "True" {
 			logrus.Error(err)
 		}
-		return nil, errCantSignString
+		return nil, ErrCantSignString
 	}
 
 	return &TokenSerializer{
@@ -92,13 +92,13 @@ func (t *TokenGiver) ParseAccess(header string) (string, error) {
 
 	token, err := jwt.ParseWithClaims(tokenstr, &models.AccessClaims{}, func(tj *jwt.Token) (interface{}, error) {
 		if _, ok := tj.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, errUnexpectedMethod
+			return nil, ErrUnexpectedMethod
 		}
 
-		return t.signingKey, nil
+		return t.SigningKey, nil
 	})
 	if err != nil {
-		return "", errParseConflict
+		return "", ErrParseConflict
 	}
 
 	claims, ok := token.Claims.(*models.AccessClaims)
@@ -106,13 +106,13 @@ func (t *TokenGiver) ParseAccess(header string) (string, error) {
 		return claims.Name, nil
 	}
 
-	return "", errInfo
+	return "", ErrInfo
 }
 
 func (t *TokenGiver) ParseHeader(header string) (string, error) {
 	headerparts := strings.Split(header, " ")
 	if len(headerparts) > 2 || headerparts[0] != "Bearer" {
-		return "", errHeaderInvalid
+		return "", ErrHeaderInvalid
 	}
 	return headerparts[1], nil
 }

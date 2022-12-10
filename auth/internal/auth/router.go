@@ -1,6 +1,8 @@
-package api
+package auth
 
 import (
+	_ "authenticate/docs"
+	"authenticate/internal/auth/api"
 	"authenticate/internal/auth/store"
 	"context"
 	"encoding/json"
@@ -11,6 +13,7 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 var (
@@ -22,28 +25,34 @@ var (
 	DeleteUser_Route     = "/delete"
 	GetUser_Route        = "/user"
 	LogoutUser_Route     = "/logout"
+	SwaggerDocs_Route    = "/swagger/"
 
-	debug    = os.Getenv("DEBUG")
-	account  = os.Getenv("MAIL_ACCOUNT")
-	password = os.Getenv("MAIL_PASSWORD")
-	port     = os.Getenv("REMOTE_PORT")
+	// debug    = os.Getenv("DEBUG")
+	// account  = os.Getenv("MAIL_ACCOUNT")
+	// password = os.Getenv("MAIL_PASSWORD")
+	// port     = os.Getenv("REMOTE_PORT")
+
+	debug    = "True"
+	account  = "l0nelyleob@gmail.com"
+	password = "qlwbxfuywlxxvbxq"
+	port     = "7000"
 )
 
 type Server struct {
-	tg         *TokenGiver
+	tg         *api.TokenGiver
 	router     *mux.Router
 	pgstore    *store.PostgresStore
 	rstore     *store.RedisStore
-	mailClient *MailClient
+	mailClient *api.MailClient
 }
 
 func NewServer(pgaddr, raddr, pwd, key string) *Server {
 	return &Server{
-		NewGiver(15*time.Minute, 72*time.Hour, key),
+		api.NewGiver(15*time.Minute, 72*time.Hour, key),
 		mux.NewRouter(),
 		store.NewStore(pgaddr),
 		store.NewRedis(raddr, pwd),
-		NewMailClient(account, password),
+		api.NewMailClient(account, password),
 	}
 }
 
@@ -55,6 +64,8 @@ func (s *Server) StartUp() {
 
 		os.Exit(1)
 	}
+
+	s.router.PathPrefix(SwaggerDocs_Route).Handler(httpSwagger.WrapHandler)
 
 	api1 := s.router.PathPrefix("/api/v1").Subrouter()
 	api1.Use(handlers.CORS(
@@ -88,7 +99,7 @@ func BindJSON(w http.ResponseWriter, data interface{}, code int) {
 }
 
 func errJSON(w http.ResponseWriter, err error, code int) {
-	BindJSON(w, &errorResponse{
+	BindJSON(w, &api.ErrorResponse{
 		Message: err.Error(),
 	}, code)
 }

@@ -1,6 +1,7 @@
-package api
+package auth
 
 import (
+	"authenticate/internal/auth/api"
 	"authenticate/internal/auth/models"
 	"encoding/json"
 	"fmt"
@@ -8,15 +9,21 @@ import (
 	"time"
 )
 
-func (s *Server) RegistrationUser_Handler() http.HandlerFunc {
-	type request struct {
-		Name     string `json:"name"`
-		Password string `json:"password"`
-		Email    string `json:"email"`
-	}
+// @Summary		Show an account
+// @Description	get string by ID
+// @Tags			accounts
+// @Accept			json
+// @Produce		json
+// @Param			id	path		int	true	"Account ID"
+// @Success		200	{object}	models.User
+// @Failure		400	{integer}	1
+// @Failure		404	{integer}	1
+// @Failure		500	{integer}	1
+// @Router			/accounts/{id} [get]
 
+func (s *Server) RegistrationUser_Handler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		req := &request{}
+		req := &models.RegisterDTO{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			errJSON(w, err, http.StatusBadRequest)
 			return
@@ -41,12 +48,12 @@ func (s *Server) RegistrationUser_Handler() http.HandlerFunc {
 		user.Meta = append(user.Meta, meta)
 
 		if err := meta.ParseUserAgent(r.UserAgent()); err != nil {
-			errJSON(w, errNoInsertMeta, http.StatusUnprocessableEntity)
+			errJSON(w, api.ErrNoInsertMeta, http.StatusUnprocessableEntity)
 			return
 		}
 
 		if err := s.pgstore.UserMeta().SetMetadata(meta); err != nil {
-			errJSON(w, errNoInsertMeta, http.StatusUnprocessableEntity)
+			errJSON(w, api.ErrNoInsertMeta, http.StatusUnprocessableEntity)
 			return
 		}
 
@@ -58,10 +65,10 @@ func (s *Server) RegistrationUser_Handler() http.HandlerFunc {
 
 		user.Meta[0].Refresh = mp.Refresh
 
-		s.rstore.SaveToken(mp.Access, user.Id.String(), s.tg.accessDuration)
+		s.rstore.SaveToken(mp.Access, user.Id.String(), s.tg.AccessDuration)
 
 		if mp == nil {
-			errJSON(w, errTokenIsOut, http.StatusBadRequest)
+			errJSON(w, api.ErrTokenIsOut, http.StatusBadRequest)
 			return
 		}
 
@@ -70,13 +77,8 @@ func (s *Server) RegistrationUser_Handler() http.HandlerFunc {
 }
 
 func (s *Server) AuthenticateUser_Handler() http.HandlerFunc {
-	type request struct {
-		Name     string `json:"name"`
-		Password string `json:"password"`
-	}
-
 	return func(w http.ResponseWriter, r *http.Request) {
-		req := &request{}
+		req := &models.AuthenticateDTO{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			errJSON(w, err, http.StatusBadRequest)
 			return
@@ -95,7 +97,7 @@ func (s *Server) AuthenticateUser_Handler() http.HandlerFunc {
 		user.Meta = append(user.Meta, meta)
 
 		if err := meta.ParseUserAgent(r.UserAgent()); err != nil {
-			errJSON(w, errNoInsertMeta, http.StatusUnprocessableEntity)
+			errJSON(w, api.ErrNoInsertMeta, http.StatusUnprocessableEntity)
 			return
 		}
 
@@ -108,15 +110,15 @@ func (s *Server) AuthenticateUser_Handler() http.HandlerFunc {
 		user.Meta[0].Refresh = mp.Refresh
 		if err := s.pgstore.UserMeta().CheckForEqualEP(meta); err != nil {
 			if err := s.pgstore.UserMeta().SetMetadata(meta); err != nil {
-				errJSON(w, errNoInsertMeta, http.StatusUnprocessableEntity)
+				errJSON(w, api.ErrNoInsertMeta, http.StatusUnprocessableEntity)
 				return
 			}
 		}
 
-		s.rstore.SaveToken(mp.Access, user.Id.String(), s.tg.accessDuration)
+		s.rstore.SaveToken(mp.Access, user.Id.String(), s.tg.AccessDuration)
 
 		if mp == nil {
-			errJSON(w, errTokenIsOut, http.StatusBadRequest)
+			errJSON(w, api.ErrTokenIsOut, http.StatusBadRequest)
 			return
 		}
 
@@ -129,13 +131,8 @@ func (s *Server) UpdateTokenUser_Handler() http.HandlerFunc {
 }
 
 func (s *Server) ForgetPassword_Handler() http.HandlerFunc {
-	type request struct {
-		Name string `json:"name"`
-		New  string `json:"new"`
-	}
-
 	return func(w http.ResponseWriter, r *http.Request) {
-		req := &request{}
+		req := &models.ForgetPasswordDTO{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			errJSON(w, err, http.StatusBadRequest)
 			return

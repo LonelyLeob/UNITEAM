@@ -3,15 +3,15 @@ package api
 import "errors"
 
 var (
-	errCantSignString   = errors.New("key is invalid")
-	errTokenIsOut       = errors.New("token was set but ignored in map")
-	errNoInsertMeta     = errors.New("meta is out")
-	errUnexpectedMethod = errors.New("cant parse with this method")
-	errParseConflict    = errors.New("parse process stopped by unavailable reason")
-	errInfo             = errors.New("cant show info")
-	errHeaderInvalid    = errors.New("header must be non-empty and be bearer, please enter the ticket")
+	ErrCantSignString   = errors.New("key is invalid")
+	ErrTokenIsOut       = errors.New("token was set but ignored in map")
+	ErrNoInsertMeta     = errors.New("meta is out")
+	ErrUnexpectedMethod = errors.New("cant parse with this method")
+	ErrParseConflict    = errors.New("parse process stopped by unavailable reason")
+	ErrInfo             = errors.New("cant show info")
+	ErrHeaderInvalid    = errors.New("header must be non-empty and be bearer, please enter the ticket")
 )
 
-type errorResponse struct {
+type ErrorResponse struct {
 	Message string `json:"err_message"`
 }

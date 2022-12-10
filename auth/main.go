@@ -1,7 +1,7 @@
 package main
 
 import (
-	"authenticate/internal/auth/api"
+	"authenticate/internal/auth"
 	"fmt"
 	"os"
 )
@@ -26,6 +26,6 @@ var (
 )
 
 func main() {
-	srv := api.NewServer(pgaddr, raddr, password, key)
+	srv := auth.NewServer(pgaddr, raddr, password, key)
 	srv.StartUp()
 }
