@@ -23,17 +23,11 @@ var (
 	DeleteUser_Route     = "/delete"
 	GetUser_Route        = "/user"
 	LogoutUser_Route     = "/logout"
-	SwaggerDocs_Route    = "/swagger/"
 
-	// debug    = os.Getenv("DEBUG")
-	// account  = os.Getenv("MAIL_ACCOUNT")
-	// password = os.Getenv("MAIL_PASSWORD")
-	// port     = os.Getenv("REMOTE_PORT")
-
-	debug    = "True"
-	account  = "l0nelyleob@gmail.com"
-	password = "qlwbxfuywlxxvbxq"
-	port     = "7000"
+	debug    = os.Getenv("DEBUG")
+	account  = os.Getenv("MAIL_ACCOUNT")
+	password = os.Getenv("MAIL_PASSWORD")
+	port     = os.Getenv("REMOTE_PORT")
 )
 
 type Server struct {

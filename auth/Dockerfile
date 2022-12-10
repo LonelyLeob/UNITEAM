@@ -6,7 +6,6 @@ ENV GOPATH=/
 ENV DEBUG=True
 ENV MAIL_ACCOUNT=l0nelyleob@gmail.com
 ENV MAIL_PASSWORD=qlwbxfuywlxxvbxq
-ENV REMOTE_HOST=localhost
 ENV REMOTE_PORT=4000
 
 ENV DB_NAME=service

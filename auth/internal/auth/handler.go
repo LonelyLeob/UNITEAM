@@ -9,18 +9,6 @@ import (
 	"time"
 )
 
-// @Summary		Show an account
-// @Description	get string by ID
-// @Tags			accounts
-// @Accept			json
-// @Produce		json
-// @Param			id	path		int	true	"Account ID"
-// @Success		200	{object}	models.User
-// @Failure		400	{integer}	1
-// @Failure		404	{integer}	1
-// @Failure		500	{integer}	1
-// @Router			/accounts/{id} [get]
-
 func (s *Server) RegistrationUser_Handler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		req := &models.RegisterDTO{}
