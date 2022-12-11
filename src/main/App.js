@@ -5,6 +5,8 @@ import FormProcessing from "../dynamicForm/forms/requests/formProcessing";
 import FormEdit from "../dynamicForm/formsEdit/formEdit";
 import PersonalArea from "../personalArea/personalArea"
 import RestorePass from "../entrance/restorePass";
+import Course from "../course/course";
+import ViewCourse from "../course/viewCourse";
 
 function App() {
 
@@ -17,6 +19,8 @@ function App() {
               <Route path="/edit" element={<FormEdit/>}></Route>
               <Route path="/personalArea" element={<PersonalArea/>}></Route>
               <Route path="/restorePass" element={<RestorePass/>}></Route>
+              <Route path="/course" element={<Course/>}></Route>
+              <Route path="/viewCourse/:id" element={<ViewCourse/>}></Route>
           </Routes>
       </div>
   )

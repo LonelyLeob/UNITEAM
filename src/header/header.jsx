@@ -18,6 +18,9 @@ function Header(){
                     <li onClick={() => navigate("/forms")}>
                        Мои формы
                     </li>
+                    <li onClick={() => navigate("/course")}>
+                        Курсы
+                    </li>
                     <li onClick={() => navigate("/personalArea")}>
                         Личный кабинет
                     </li>

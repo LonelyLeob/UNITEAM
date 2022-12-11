@@ -7,11 +7,9 @@ function ViewForms(props){
 
     let navigate = useNavigate()
     let handlerSubmit = () => {
-        JSON.stingyfy(localStorage.setItem("data", props.item))
+        JSON.stringify(localStorage.setItem("data", props.item))
         navigate('/edit')
     }
-   
-  
     return(
                 <div className="formContainer" onClick={(e) => {handlerSubmit(e)}} >
                     {props.item ?
