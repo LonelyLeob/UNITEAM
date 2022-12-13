@@ -16,8 +16,8 @@ function Course() {
     const[count,setCount] = useState(0)
     let content =
         <form action="" className="modalForm">
-            <input placeholder="Название курса" value={title} onChange={event => setTitle(event.target.value)} className="modalFormName" type="text" required/>
-            <input placeholder="Описание" value={desc} onChange={event => setDesc(event.target.value)} className="modalFormDesc" type="text" required={true}/>
+            <input placeholder="Название курса" value={title} onChange={event => setTitle(event.target.value)} className="modalFormName" type="text" />
+            <input placeholder="Описание" value={desc} onChange={event => setDesc(event.target.value)} className="modalFormDesc" type="text" maxLength="150"/>
             <button type="submit" className="modalBtn" onClick={(e) =>  addHandler(e)}>Добавить</button>
         </form>
 
@@ -62,10 +62,14 @@ function Course() {
                                         <Link to={`/viewCourse/${item.id}`} className="courseTitleLink">
                                             <p className="courseTitle">{item.title}</p>
                                         </Link>
-                                        <p className="courseDesc">{item.desc}</p>
                                         <div className="courseWrap">
-                                            <p className="courseAuthor">Автор: {item.author}</p>
-                                            <p className="coursePrice">Цена: 200$</p>
+                                            <div className="courseDesc">
+                                                <p>Автор: {item.author}</p>
+                                                <p className="coursePrice">Цена: 200$</p>
+                                            </div>
+                                            <div className="imageContainer">
+                                                <img src="../testImage.png" alt="Изображение курса" className="image"/>
+                                            </div>
                                         </div>
                                     </div>
                                 )

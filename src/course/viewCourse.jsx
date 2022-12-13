@@ -38,6 +38,7 @@ function ViewCourse() {
         if (section){
             await AddSection(parseInt(courseId), section)
             setCount(+ 1)
+            setSection('')
             setModal(false)
         }
     }
@@ -49,19 +50,28 @@ function ViewCourse() {
     }
 
     return (
-        <div>
-            <p onClick={() => navigate(-1)}>Вернуться назад</p>
-            <p onClick={(e) => delHandler(e)}>Удалить курс</p>
-            <p>{course.title}</p>
-            <p>{course.desc}</p>
-            <p>{course.author}</p>
-            <button onClick={() => setModal(true)}>Добавить секцию</button>
+        <div className="viewCourse">
+            <div className="viewCourseWrap">
+                <div className="btnSection">
+                    <p className="button" onClick={() => navigate(-1)}>Вернуться назад</p>
+                    <p className="button" onClick={(e) => delHandler(e)}>Удалить курс</p>
+                </div>
+                    <h1>{course.title}</h1>
+                <div className="authorInfo">
+                    <p className="viewCourseDesc">{course.desc}</p>
+                    <p className="viewCourseAuthor">Автор курса - {course.author}</p>
+                </div>
+            </div>
+
             <Sections section = {course.sections}/>
+            <button className="addSection" onClick={() => setModal(true)}>Добавить секцию</button>
+
                 <Modal
                     isVisible={isModal}
                     title="Добавление секции" content={content}
                     footer={<p></p>} onClose={() => setModal(false)}
                 />
+
         </div>
     )
 }

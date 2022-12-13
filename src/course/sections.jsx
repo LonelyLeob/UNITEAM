@@ -7,7 +7,7 @@ function Sections(props) {
          {props.section && props.section.map((item,idx) => {
                  return (
                      <div key={idx}>
-                         <p>{item.content}</p>
+                         <p className="courseContent">{item.content}</p>
                      </div>
                  )
              })}
