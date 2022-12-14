@@ -51,20 +51,24 @@ function ViewCourse() {
 
     return (
         <div className="viewCourse">
-            <div className="viewCourseWrap">
-                <div className="btnSection">
-                    <p className="button" onClick={() => navigate(-1)}>Вернуться назад</p>
-                    <p className="button" onClick={(e) => delHandler(e)}>Удалить курс</p>
-                </div>
-                    <h1>{course.title}</h1>
-                <div className="authorInfo">
-                    <p className="viewCourseDesc">{course.desc}</p>
-                    <p className="viewCourseAuthor">Автор курса - {course.author}</p>
-                </div>
-            </div>
+                <div className="viewCourseWrap">
+                    <div className="btnSection">
+                        <p className="button" onClick={() => navigate(-1)}>Вернуться назад</p>
+                        <p className="button" onClick={(e) => delHandler(e)}>Удалить курс</p>
+                    </div>
+                
 
-            <Sections section = {course.sections}/>
-            <button className="addSection" onClick={() => setModal(true)}>Добавить секцию</button>
+                        <h1>{course.title}</h1>
+                    <div className="authorInfo">
+                        <p className="viewCourseDesc">{course.desc}</p>
+                        <p className="viewCourseAuthor">Автор курса - {course.author}</p>
+                    </div>
+                </div>
+                
+        
+                    <Sections section = {course.sections}/>
+                    <button className="addSection" onClick={() => setModal(true)}>Добавить секцию</button>
+      
 
                 <Modal
                     isVisible={isModal}
