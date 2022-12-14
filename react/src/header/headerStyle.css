@@ -1,0 +1,52 @@
+.Header{
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    background-color: white;
+}
+
+.upMenu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 70px 20px 70px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25), -2px -2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.upMenu .HeaderLogo{
+    font-size: 30px;
+    font-weight: lighter;
+}
+
+.upMenu ul{
+    display: flex;
+    align-items: center;
+}
+
+.upMenu ul li{
+    margin-left: 40px;
+    cursor: pointer;
+    border-bottom: white;
+    border-top: white;
+    transition: 0.7s linear;
+    list-style-type: none;
+    text-align: center;
+    padding: 3px 0 3px 0;
+}
+
+.upMenu ul li:hover{
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+@media (max-width: 490px) {
+    .Header{
+        display: none;
+    }
+}
+
+@media (max-width: 670px) {
+    .upMenu{
+        padding: 30px;
+    }
+}

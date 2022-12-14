@@ -1,0 +1,205 @@
+.titleAdd h1{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.titleAdd p{
+    text-align: right;
+    margin: 30px 30px 30px 0;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.mainCourseWrap{
+    display: flex;
+}
+
+.courseContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1145px;
+    margin: 0 0 50px 0;
+    padding: 0 100px 0 0 ;
+}
+
+.menuContainer{
+    padding: 20px;
+    font-size: 18px;
+    margin-left: 50px;
+    width: 400px;
+}
+
+.menuContainer h2{
+    font-size: 20px;
+}
+
+.radioForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.courseBlock{
+    width: 450px;
+    height: 214px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.37);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.courseTitleLink{
+    color: black;
+    text-decoration: none;
+}
+
+.courseTitle{
+    font-size: 25px;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    text-align: center;
+    transition: 0.3s;
+    margin: 0 0 20px 0;
+}
+
+.courseWrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: normal;
+}
+
+.courseAuthor, .coursePrice{
+    padding: 0 15px 0 15px;
+}
+
+.modalFormSection{
+    background: transparent;
+    box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    letter-spacing: 1px;
+    outline: none;
+    width: 100%;
+    height: 230px;
+    font-size: 18px;
+    resize: none;
+}
+
+.modalDescText{
+    resize: none;
+    margin-top: 20px;
+    width: 400px;
+    font-size: 16px;
+    border: none;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.34);
+    padding: 10px;
+    height: 100px;
+}
+
+.imageContainer{
+    width: 120px;
+    height: 120px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+/*     /////  ViewCourse style  /////     */
+
+
+.viewCourseWrap{
+    padding: 20px 0 30px 0;
+    background-color: rgba(62, 196, 224, 0.47);
+}
+
+.viewCourseContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 150px 0 150px;
+}
+
+.btnSection{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.button{
+    padding: 7px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.57);
+    cursor: pointer;
+    background-color: white;
+    transition: 0.3s;
+}
+
+.viewCourseDesc{
+    text-align: center;
+    width: 600px;
+    margin: auto;
+    padding-left: 10px;
+}
+
+.coursePrice{
+    margin: 0;
+    padding: 0;
+}
+
+.addSection{
+    padding: 7px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.57);
+    cursor: pointer;
+    background-color: white;
+    border: none;
+    margin: 20px 20px 50px 0;
+    float: right;
+    transition: 0.3s;
+}
+
+.viewCourseAuthor{
+    text-align: right;
+    margin: 20px 20% 20px 0;
+}
+
+.viewCourse h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.authorInfo{
+    font-size: 18px;
+}
+
+.courseContent{
+    padding: 20px 50px 20px 50px;
+    margin-top: 50px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.288);
+    max-width: 600px;
+}
+
+.readNext{
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgba(58, 181, 206, 0.219);
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.button, .addSection:hover{
+    box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.57);
+}
+
+.courseTitle:hover{
+    color: #048cfa;
+}
+
+.titleAdd p:hover{
+    color: #048cfa;
+}
+
+.readNext:hover{
+    background-color: rgba(58, 181, 206, 0.329);
+}

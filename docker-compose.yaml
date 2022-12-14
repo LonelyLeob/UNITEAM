@@ -94,3 +94,31 @@ services:
     container_name: migrator
     build: ./migrator
     restart: on-failure
+
+
+#   react:
+#     build: ./react
+#     volumes:
+#       - react_build:/UNITEAM/build
+#   nginx:
+#     build: ./nginx
+#     ports: 
+#       - 80:80
+#       - 443:443
+#     volumes:
+#       - react_build:/var/www/react
+#       - etc-letsencrypt:/etc/letsencrypt
+#     depends_on:
+#       - react
+#   certbot:
+#     image: certbot/certbot
+#     depends_on:
+#       - nginx
+#     volumes:
+#       - etc-letsencrypt:/etc/letsencrypt
+#       - react_build:/var/www/react
+#     command: certonly --webroot --webroot-path=/var/www/react --email l0nelyleob@gmail.com --agree-tos --no-eff-email -d uni-team-inc.online
+  
+# volumes:
+#   react_build:
+#   etc-letsencrypt:
