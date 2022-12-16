@@ -32,7 +32,7 @@ func (s *server) Serve() {
 	api1 := s.router.PathPrefix("/api/v1").Subrouter()
 	api1.Use(
 		handlers.CORS(
-			handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+			handlers.AllowedOrigins([]string{"*"}),
 			handlers.AllowedHeaders([]string{"Origin", "Authorization"}),
 			handlers.AllowedMethods([]string{http.MethodPost, http.MethodGet, http.MethodOptions}),
 		))
