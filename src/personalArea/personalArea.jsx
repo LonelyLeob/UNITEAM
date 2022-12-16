@@ -36,11 +36,6 @@ function PersonalArea(){
     return (
         <div>
             <Header/>
-                <div className="btnDelContainer">
-                    <label> Удалить пользователя
-                    <button className="btnDel" onClick={() => setModal(true)}>-</button>
-                    </label>
-                </div>
             <div className="profileContainer">
                 <div className="containerWrap">
                     <div className="profileWrap">
@@ -48,7 +43,8 @@ function PersonalArea(){
                             <div className="profile">
                                 <p> Имя пользователя: {user.name}</p>
                                 <p>E-mail: {user.email}</p>
-                                <p className="changePsw">Изменить пароль</p>
+                                <p className="changePsw" onClick={() => {navigate("/restorePass")}}>Изменить пароль</p>
+                                <p className="delProfile" onClick={() => setModal(true)}>Удалить аккаунт</p>
                             </div>
                     </div>
 

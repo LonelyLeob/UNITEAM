@@ -34,6 +34,17 @@
     transition: 0.3s;
 }
 
+.delProfile{
+    font-size: 16px;
+    border-bottom: 1px solid;
+    width: 130px;
+    padding-bottom: 3px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
 .sessionsWrap{
     display: flex;
 }
@@ -51,12 +62,10 @@
   margin-left: 255px;
 }
 
-/* .deleteUser{
-    display: flex;
-    justify-content: end;
-    align-items: center;
-} */
-
 .changePsw:hover{
     color: #048cfa;
+}
+
+.delProfile:hover{
+    color: #fa0404;
 }
