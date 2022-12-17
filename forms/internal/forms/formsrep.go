@@ -146,7 +146,7 @@ func (r *FormsRepository) GetFullFormByUUID(uid string) (*Form, error) {
 		return nil, err
 	}
 
-	if err = r.store.db.QueryRow("SELECT * FROM form WHERE uuid = $1").Scan(
+	if err = r.store.db.QueryRow("SELECT * FROM form WHERE uuid = $1", uidp).Scan(
 		&f.Uuid, &f.Name, &f.Description, &f.IsAnonym, &f.AuthorName,
 	); err != nil {
 		return nil, err
