@@ -117,7 +117,7 @@ func (r *FormsRepository) GetAnswersByFieldId(id uint64) ([]*VariableAnswers, er
 	return arrA, nil
 }
 
-func (r *FormsRepository) GetAllFormsByAuthorUUID(author string) ([]*Form, error) {
+func (r *FormsRepository) GetAllFormsByAuthor(author string) ([]*Form, error) {
 	rows, err := r.store.db.Query("SELECT * FROM form WHERE authorname = $1", author)
 	if err != nil {
 		return nil, err
@@ -131,14 +131,35 @@ func (r *FormsRepository) GetAllFormsByAuthorUUID(author string) ([]*Form, error
 			fmt.Println(err)
 			continue
 		}
-		f.Fields, err = r.GetFieldsWithAnswersByUUID(&f.Uuid)
-		if err != nil {
-			fmt.Println(err)
-			continue
-		}
+
 		arrF = append(arrF, &f)
 	}
+
 	return arrF, nil
+}
+
+func (r *FormsRepository) GetFullFormByUUID(uid string) (*Form, error) {
+	var f Form
+	var err error
+	uidp, err := uuid.Parse(uid)
+	if err != nil {
+		return nil, err
+	}
+
+	if err = r.store.db.QueryRow("SELECT * FROM form WHERE uuid = $1").Scan(
+		&f.Uuid, &f.Name, &f.Description, &f.IsAnonym, &f.AuthorName,
+	); err != nil {
+		return nil, err
+	}
+
+	fields, err := r.GetFieldsWithAnswersByUUID(&uidp)
+	if err != nil {
+		return nil, err
+	}
+
+	f.Fields = fields
+
+	return &f, nil
 }
 
 func (r *FormsRepository) DeleteAllFormByUuid(struuid string) error {

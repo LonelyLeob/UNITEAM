@@ -118,13 +118,26 @@ func (s *Server) GetFormsByAuthorUUID() http.HandlerFunc {
 			return
 		}
 
-		fs, err := s.store.Forms().GetAllFormsByAuthorUUID(name)
+		fs, err := s.store.Forms().GetAllFormsByAuthor(name)
 		if err != nil {
 			errJSON(w, http.StatusUnprocessableEntity, errNoForms)
 			return
 		}
 
 		toJSON(w, http.StatusOK, fs)
+	}
+}
+
+func (s *Server) GetFormByUUID() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		uid := r.URL.Query().Get("uid")
+		form, err := s.store.Forms().GetFullFormByUUID(uid)
+		if err != nil {
+			errJSON(w, http.StatusUnprocessableEntity, err)
+			return
+		}
+
+		toJSON(w, http.StatusOK, form)
 	}
 }
 

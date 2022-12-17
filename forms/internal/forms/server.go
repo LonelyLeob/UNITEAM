@@ -11,13 +11,14 @@ import (
 )
 
 var (
-	createForm   = "/create"
-	createField  = "/create/field"
-	createAnswer = "/create/answer"
-	getForms     = "/get/forms"
-	deleteForm   = "/delete"
-	deleteField  = "/delete/field"
-	deleteAnswer = "/delete/answer"
+	createForm    = "/create"
+	createField   = "/create/field"
+	createAnswer  = "/create/answer"
+	getShortForms = "/get/short"
+	getForm       = "/get/form"
+	deleteForm    = "/delete"
+	deleteField   = "/delete/field"
+	deleteAnswer  = "/delete/answer"
 )
 
 type Server struct {
@@ -72,7 +73,8 @@ func (s *Server) setupRoutes() {
 	api1.HandleFunc(createField, s.FieldCreatingForm()).Methods(http.MethodPost, http.MethodOptions)
 	api1.HandleFunc(createAnswer, s.AnswerCreatingField()).Methods(http.MethodPost, http.MethodOptions)
 
-	api1.HandleFunc(getForms, s.GetFormsByAuthorUUID()).Methods(http.MethodGet, http.MethodOptions)
+	api1.HandleFunc(getShortForms, s.GetFormsByAuthorUUID()).Methods(http.MethodGet, http.MethodOptions)
+	api1.HandleFunc(getForm, s.GetFormByUUID()).Methods(http.MethodGet, http.MethodOptions)
 
 	api1.HandleFunc(deleteForm, s.DeleteFormByFormUuid()).Methods(http.MethodDelete, http.MethodOptions)
 	api1.HandleFunc(deleteField, s.DeleteFieldById()).Methods(http.MethodDelete, http.MethodOptions)
