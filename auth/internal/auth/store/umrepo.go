@@ -15,6 +15,8 @@ var (
 	userMetaGetQueryById = "SELECT lv, browser, os FROM %s WHERE uuid = $1"
 	userMetaCheckSess    = "select os, browser from %s where os = $1 and browser = $2"
 	userDeleteSess       = "DELETE FROM %s WHERE refresh = $1"
+	userGetUidByRefresh  = "SELECT uuid FROM %s WHERE refresh = $1"
+	resetEp              = "UPDATE %s SET refresh = $1 WHERE os = $2 and browser = $3"
 )
 
 type UserMetaRepository struct {
@@ -70,19 +72,43 @@ func (um *UserMetaRepository) GetMetadataById(id uuid.UUID) ([]*models.UserMeta,
 	return meta, nil
 }
 
+func (um *UserMetaRepository) GetUUIDByRefresh(refresh string) (*uuid.UUID, error) {
+	var uid uuid.UUID
+	if err := um.ps.db.QueryRow(fmt.Sprintf(userGetUidByRefresh, MetaTable), refresh).Scan(&uid); err != nil {
+		if debug == "True" {
+			logrus.Error(err)
+		}
+
+		return nil, errUnreachableAction
+	}
+	return &uid, nil
+}
+
 func (um *UserMetaRepository) CheckForEqualEP(meta *models.UserMeta) error {
-	var osdb, brwdb string
+	var os, bwr string
 	err := um.ps.db.QueryRow(
 		fmt.Sprintf(userMetaCheckSess, MetaTable),
 		meta.OS,
 		meta.Browser,
-	).Scan(&osdb, &brwdb)
-	fmt.Println(meta.OS, meta.Browser)
+	).Scan(
+		&os,
+		&bwr,
+	)
 	if err != nil {
 		if debug == "True" {
 			logrus.Error(err)
 		}
 
+		return errUnreachableAction
+	}
+	return nil
+}
+
+func (um *UserMetaRepository) ResetEP(meta *models.UserMeta) error {
+	if _, err := um.ps.db.Exec(fmt.Sprintf(resetEp, MetaTable), meta.Refresh, meta.OS, meta.Browser); err != nil {
+		if debug == "True" {
+			logrus.Error(err)
+		}
 		return errUnreachableAction
 	}
 	return nil

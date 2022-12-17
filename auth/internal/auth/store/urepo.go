@@ -21,6 +21,7 @@ const (
 	getUserByNameQuery  = "SELECT id, email, password FROM %s WHERE name = $1"
 	updatePasswordQuery = "UPDATE %s SET password = $1 WHERE name = $2"
 	deleteUserQuery     = "DELETE FROM %s WHERE name = $1"
+	getUserByUidQuery   = "SELECT name, email FROM %s WHERE id = $1"
 )
 
 type UserRepository struct {
@@ -118,7 +119,7 @@ func (u *UserRepository) GetAndVerificateUser(name, pwd string) (*models.User, e
 	return user, nil
 }
 
-func (u *UserRepository) DeleteUserById(name string) error {
+func (u *UserRepository) DeleteUserByName(name string) error {
 	if _, err := u.ps.db.Exec(
 		fmt.Sprintf(deleteUserQuery, UserTable),
 		name,
@@ -149,4 +150,19 @@ func (u *UserRepository) UpdatePasswordByName(user *models.User) error {
 	}
 
 	return nil
+}
+
+func (u *UserRepository) GetUserByUid(uid *uuid.UUID) (*models.User, error) {
+	var user models.User
+	if err := u.ps.db.QueryRow(fmt.Sprintf(getUserByUidQuery, UserTable), uid).Scan(
+		&user.Name,
+		&user.Email,
+	); err != nil {
+		if debug == "True" {
+			logrus.Error(err)
+		}
+		return nil, errUnreachableAction
+	}
+
+	return &user, nil
 }

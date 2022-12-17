@@ -23,6 +23,7 @@ var (
 	DeleteUser_Route     = "/delete"
 	GetUser_Route        = "/user"
 	LogoutUser_Route     = "/logout"
+	DeleteEP_Route       = "/close"
 
 	debug    = os.Getenv("DEBUG")
 	account  = os.Getenv("MAIL_ACCOUNT")
@@ -72,6 +73,7 @@ func (s *Server) StartUp() {
 	go api1.HandleFunc(GetUser_Route, s.GetUser_Handler()).Methods(http.MethodGet, http.MethodOptions)
 	go api1.HandleFunc(UpdatePwd_Route, s.UpdatePassword_Handler()).Methods(http.MethodGet, http.MethodOptions)
 	go api1.HandleFunc(LogoutUser_Route, s.LogoutUser_Handler()).Methods(http.MethodGet, http.MethodOptions)
+	go api1.HandleFunc(DeleteEP_Route, s.CloseSession_Handler()).Methods(http.MethodGet, http.MethodOptions)
 
 	http.ListenAndServe(":"+port, s.router)
 }
