@@ -44,12 +44,12 @@ function PersonalArea(){
                                 <p> Имя пользователя: {user.name}</p>
                                 <p>E-mail: {user.email}</p>
                                 <p className="changePsw" onClick={() => {navigate("/restorePass")}}>Изменить пароль</p>
-                                <p className="delProfile" onClick={() => setModal(true)}>Удалить аккаунт</p>
+                                <p className="delUser" onClick={() => setModal(true)}>Удалить аккаунт</p>
                             </div>
                     </div>
 
                         <div className="sessionsWrap">
-                                {user.meta ? user.meta.map((item,idx)=>{
+                                {user.meta?.map((item,idx)=>{
                                     return(
                                         <div key={idx} className="sessions">
                                             <button className="answerDelBtn">x</button>
@@ -58,7 +58,7 @@ function PersonalArea(){
                                             <p>Операционная система: {item.os}</p>
                                         </div>
                                     )
-                                }): <p></p> }
+                                })}
                     </div>
                 </div>
             </div>

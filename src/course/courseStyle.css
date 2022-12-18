@@ -70,10 +70,6 @@
     align-items: normal;
 }
 
-.courseAuthor, .coursePrice{
-    padding: 0 15px 0 15px;
-}
-
 .modalFormSection{
     background: transparent;
     box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.25);
@@ -105,6 +101,14 @@
     padding: 5px;
 }
 
+.courseTitle:hover{
+    color: #048cfa;
+}
+
+.titleAdd p:hover{
+    color: #048cfa;
+}
+
 /*     /////  ViewCourse style  /////     */
 
 
@@ -116,8 +120,16 @@
 .viewCourseContainer{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     padding: 0 150px 0 150px;
+}
+
+.courseContent{
+    padding: 20px 50px 20px 50px;
+    margin: 50px 0 0 100px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.288);
+    max-width: 400px;
+    min-width: 400px;
 }
 
 .btnSection{
@@ -172,11 +184,10 @@
     font-size: 18px;
 }
 
-.courseContent{
-    padding: 20px 50px 20px 50px;
-    margin-top: 50px;
-    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.288);
-    max-width: 600px;
+.sectionBtn{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .readNext{
@@ -186,6 +197,19 @@
     background-color: rgba(58, 181, 206, 0.219);
     border-radius: 5px;
     transition: 0.3s;
+}
+
+.updateSection{
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    background-color: rgba(11, 203, 99, 0.22);
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.updateSection:hover{
+    background-color: rgba(1, 168, 73, 0.28);
 }
 
 .button, .addSection:hover{
@@ -203,3 +227,9 @@
 .readNext:hover{
     background-color: rgba(58, 181, 206, 0.329);
 }
+
+.button, .addSection:hover{
+    box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.57);
+}
+
+
