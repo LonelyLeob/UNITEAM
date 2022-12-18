@@ -10,7 +10,7 @@ function Sections(props) {
     const[id,setId] = useState()
     const [isModal, setModal] = useState(false);
     let content =
-        <form action="" className="modalForm" id="modalForm">
+        <form className="modalForm" id="modalForm">
             <textarea
                 name="section" cols="50" rows="10" required form="modalForm" className="modalFormSection" value={section}
                 placeholder="Контентная секция" onChange={event => setSection(event.target.value)}>
