@@ -11,10 +11,10 @@ function ViewCourse() {
 
     const params = useParams()
     const [course, setCourse] = useState([])
-    const navigate = useNavigate()
     const [isModal, setModal] = useState(false);
     const[section,setSection] = useState('')
     const[count,setCount] = useState(0)
+    const navigate = useNavigate()
     const courseId = params.id
     let content =
         <form action="" className="modalForm" id="modalForm">

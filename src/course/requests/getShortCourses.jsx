@@ -1,6 +1,6 @@
 import axios from "axios";
 
-async function GetShort(setCourse) {
+async function GetShort(setForm) {
 
     await axios.get("http://uni-team-inc.online:8000/api/v1/get/courses/short",
         {headers:{
@@ -8,7 +8,7 @@ async function GetShort(setCourse) {
             }}
     )
         .then(data => {
-            setCourse(data.data)
+            setForm(data.data)
         })
 }
 

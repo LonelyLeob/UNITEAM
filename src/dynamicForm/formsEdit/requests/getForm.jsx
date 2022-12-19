@@ -1,7 +1,8 @@
 import axios from "axios";
 
-async function GetUserForms(setForm){
-         await axios.get("http://uni-team-inc.online:8080/api/v1/get/short",
+async function GetForm(setForm,Uuid ){
+
+         await axios.get(`http://uni-team-inc.online:8080/api/v1/get/form?uid=${Uuid}`,
             {headers:{
                     Authorization:`Bearer ${localStorage.getItem('access')}`
                 }}
@@ -11,4 +12,4 @@ async function GetUserForms(setForm){
             })
 }
 
-export default GetUserForms
+export default GetForm
