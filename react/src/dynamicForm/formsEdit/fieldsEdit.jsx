@@ -11,7 +11,11 @@ function FieldsEdit(props){
                     <div className="changeFields" key={idx}>
                         <div className="wrapper">
                             <p>{item.Quiz}</p>
-                            <button className="fieldsDelBtn" onClick={() => DeleteField(item.Id)}>X</button>
+                            <button className="fieldsDelBtn" onClick={async(e) => {
+                                    e.preventDefault()
+                                    await DeleteField(item.Id)
+                                    props.setCount((prev) => prev + 1)
+                            }}>X</button>
                         </div>
                         <br/>
                         <FieldsAnswerEdit fieldsId={item.Id} fieldsAnswers={item.Answers}/>

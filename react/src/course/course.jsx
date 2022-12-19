@@ -34,7 +34,7 @@ function Course() {
     let addHandler = async(e) => {
         e.preventDefault()
         await AddCourse(title, desc)
-        setCount(+ 1)
+        setCount((prev) => prev + 1)
         setModal(false)
     }
 
@@ -56,7 +56,7 @@ function Course() {
                                     <input type="range" min="0" max="12" step="1" value={range} onChange={(e) => setRange(e.target.value)}/>
                                 </div>
                         <div className="courseContainer">
-                            {course.map((item, idx) => {
+                            {course?.map((item, idx) => {
                                 return(
                                     <div className="courseBlock" key={idx}>
                                         <Link to={`/viewCourse/${item.id}`} className="courseTitleLink">

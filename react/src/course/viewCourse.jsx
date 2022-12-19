@@ -11,10 +11,10 @@ function ViewCourse() {
 
     const params = useParams()
     const [course, setCourse] = useState([])
-    const navigate = useNavigate()
     const [isModal, setModal] = useState(false);
     const[section,setSection] = useState('')
     const[count,setCount] = useState(0)
+    const navigate = useNavigate()
     const courseId = params.id
     let content =
         <form action="" className="modalForm" id="modalForm">
@@ -37,7 +37,7 @@ function ViewCourse() {
         e.preventDefault()
         if (section){
             await AddSection(parseInt(courseId), section)
-            setCount(+ 1)
+            setCount((prev) => prev + 1)
             setSection('')
             setModal(false)
         }
@@ -51,30 +51,27 @@ function ViewCourse() {
 
     return (
         <div className="viewCourse">
-                <div className="viewCourseWrap">
-                    <div className="btnSection">
-                        <p className="button" onClick={() => navigate(-1)}>Вернуться назад</p>
-                        <p className="button" onClick={(e) => delHandler(e)}>Удалить курс</p>
-                    </div>
-                
-
-                        <h1>{course.title}</h1>
-                    <div className="authorInfo">
-                        <p className="viewCourseDesc">{course.desc}</p>
-                        <p className="viewCourseAuthor">Автор курса - {course.author}</p>
-                    </div>
+            <div className="viewCourseWrap">
+                <div className="btnSection">
+                    <p className="button" onClick={() => navigate(-1)}>Вернуться назад</p>
+                    <p className="button" onClick={(e) => delHandler(e)}>Удалить курс</p>
                 </div>
-                
-        
-                    <Sections section = {course.sections}/>
-                    <button className="addSection" onClick={() => setModal(true)}>Добавить секцию</button>
-      
 
-                <Modal
-                    isVisible={isModal}
-                    title="Добавление секции" content={content}
-                    footer={<p></p>} onClose={() => setModal(false)}
-                />
+                <h1>{course.title}</h1>
+                <div className="authorInfo">
+                    <p className="viewCourseDesc">{course.desc}</p>
+                    <p className="viewCourseAuthor">Автор курса - {course.author}</p>
+                </div>
+            </div>
+
+            <Sections section = {course.sections}/>
+            <button className="addSection" onClick={() => setModal(true)}>Добавить секцию</button>
+
+            <Modal
+                isVisible={isModal}
+                title="Добавление секции" content={content}
+                footer={<p></p>} onClose={() => setModal(false)}
+            />
 
         </div>
     )

@@ -3,26 +3,24 @@ import {useEffect, useState} from "react";
 import GetUserForms from "./getUserForms";
 import ViewForms from "../form";
 import Header from "../../../header/header";
-import Modal from "../modal/modalWin";
+import Modal from "../../../modal/modalWin";
 import AddNewForm from "./addNewForm";
 
 function FormProcessing(){
 
     const [forms, setForms] = useState([])
-    const [formsState, setFormsState] = useState()
+    const [count, setCount] = useState(0)
     const [isModal, setModal] = useState(false);
     const[formName,setFormName] = useState('')
     const[formDescription,setFormDescription] = useState('')
     const[formAnon,setFormAnon] = useState(true)
-    let i
 
     useEffect(() => {
         query()
-    }, [formsState])
+    }, [count])
 
     const query = async () => {
-        await GetUserForms()
-        setForms(JSON.parse(localStorage.getItem("forms")))
+        await GetUserForms(setForms)
     }
 
 
@@ -31,14 +29,13 @@ function FormProcessing(){
             <input placeholder="Название" value={formName} onChange={event => setFormName(event.target.value)} className="modalFormName" type="text"/>
             <input placeholder="Описание" value={formDescription} onChange={event => setFormDescription(event.target.value)} className="modalFormDesc" type="text"/>
             <label htmlFor="">Сделать форму анонимной?<input checked={formAnon} onChange={(event) => setFormAnon(event.target.checked)} className="modalFormCheck" type="checkbox"/></label><br/>
-            <button type="submit" className="modalBtn" onClick={(e) =>  formHandler(e)}>Отправить</button>
+            <button type="submit" className="modalBtn" onClick={(e) => formHandler(e)}>Отправить</button>
         </form>
 
     let formHandler = async(e) => {
         e.preventDefault()
         await AddNewForm(formName, formDescription, formAnon)
-        i = Math.random()
-        setFormsState(i)
+        setCount((prev) => prev + 1)
         setFormName("")
         setFormDescription("")
         setModal(false)

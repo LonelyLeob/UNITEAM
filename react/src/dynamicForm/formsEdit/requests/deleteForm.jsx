@@ -1,8 +1,8 @@
 import axios from "axios";
 
-function DeleteForm(Uuid){
+  function DeleteForm(Uuid){
 
-    let res = axios.delete(`http://uni-team-inc.online:8080/api/v1/delete?form=${Uuid}`)
+    axios.delete(`http://uni-team-inc.online:8080/api/v1/delete?form=${Uuid}`)
 
 }
 

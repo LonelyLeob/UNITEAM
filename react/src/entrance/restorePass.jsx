@@ -9,19 +9,19 @@ function RestorePass(){
     const[password, setPassword] = useState('')
     const[name, setName] = useState('')
     const navigate = useNavigate()
-    const url = "http://uni-team-inc.online:4000/api/v1/forget/pwd"
+    const url = "http://uni-team-inc.online/api/v1/forget/pwd"
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         await Restore(url, name, password)
-        // navigate("/")
+        navigate("/")
     }
 
     return(
         <div className="entrainceContain">
             <div className="entrainceForm">
                 <div className="btnBack">
-                    <p className="backAuth" onClick={() => navigate("/")}>⇐</p>
+                    <p className="backAuth" onClick={() => navigate(-1)}>⇐</p>
                     <h1 className="formTitle">UNIVERCITY.Inc</h1>
                 </div>
                 <form>
